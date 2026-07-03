@@ -7,7 +7,7 @@ include 'connection.php';
 
 ?>
 
-<form method= "post">
+<form method = "post" action = "teacher.php">
     <!-- Name -->
     <input type="text" name="fname" placeholder="Given name" required><br>
     <input type="text" name="lname" placeholder="Surname" required><br>
