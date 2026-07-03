@@ -6,14 +6,14 @@ include 'connection.php';
 ?>
 
 <form method="post">
-    <input type="text" name="fname" placeholder="Given name"><br>
-    <input type="text" name="lname" placeholder="Surname"><br>
-    <input type="email" name="email" placeholder="Email"><br>
-    <input type="password" name="pass" placeholder="Password"><br>
-    <input type="password" name="pass2" placeholder="Confirm Password"><br>
+    First Name:<input type="text" name="fname" placeholder="Given name" required><br>
+    Last Name:<input type="text" name="lname" placeholder="Surname" required><br>
+    Email: <input type="email" name="email" placeholder="Email" required><br>
+    Password:<input type="password" name="pass" placeholder="Password" required><br>
+    Confirm Password:<input type="password" name="pass2" placeholder="Confirm Password" required><br>
 
     <!-- University Dropdown -->
-    <select name="uni_id" required>
+    University: <select name="uni_id" required>
         <option value="">-- Select University --</option>
 
         <?php
