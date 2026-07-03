@@ -19,5 +19,5 @@ $user = mysqli_fetch_assoc($result);
 
     <input type = "email" name = "email" value = "<?php echo htmlspecialchars($user['email']); ?>" required>
 
-    <input
+    <input type="submit" value="Sign Up" name="signup">
 </form>
