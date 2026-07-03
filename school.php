@@ -12,7 +12,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo "<div>";
     echo "<h3>" . htmlspecialchars($row['teacher_fname'] . " " . $row['teacher_lname']) . "</h3>";
     echo "<a href='teacher_profile.php?teacher_id=" . $row['teacher_id'] . "'>View Profile</a>";
-    echo "---------------------------------------------------------------";
+    echo "<br>---------------------------------------------------------------";
     echo "</div>";
 }
 
