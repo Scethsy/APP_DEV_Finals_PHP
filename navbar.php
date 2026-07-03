@@ -1,5 +1,6 @@
     <nav>
-    <a href="profile.php">Profile</a>
+    LectSure
+    <a href="home.php">Home</a>
     <a href="school.php">Universities</a>
-    <a href="logout.php">Logout</a>
+    <a href="profile.php">Profile</a>
     </nav>

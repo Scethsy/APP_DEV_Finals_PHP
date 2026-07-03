@@ -24,7 +24,7 @@
                 $_SESSION['user_id'] = $row['user_id'];
                 $_SESSION['user'] = $row['fname'] . " " . $row['lname'];
 
-                header("location: profile.php");
+                header("location: homepage.php");
                 exit();
             } else {
             echo "Invalid login credentials.";
