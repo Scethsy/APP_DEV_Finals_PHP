@@ -11,4 +11,6 @@
 
 <h1> Welcome <?php echo $_SESSION['user']; ?>! </h1>
 
+<a href="edit_profile.php">Edit Profile </a>
+
 <a href="logout.php">logout</a>
