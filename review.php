@@ -38,6 +38,7 @@ include 'connection.php';
         <option value="4">4</option>
         <option value="5">5</option>
     </select>
+    <br><br>
 
     <!-- Knowledgeable -->
      <label for="rating">Knowledgeable Rating:</label>
@@ -49,6 +50,7 @@ include 'connection.php';
         <option value="4">4</option>
         <option value="5">5</option>
     </select>
+    <br><br>
 
     <!-- Strict Level -->
      <label for="rating">Strict Level Rating:</label>
@@ -60,6 +62,7 @@ include 'connection.php';
         <option value="4">4</option>
         <option value="5">5</option>
     </select>
+    <br><br>
 
     <!-- Time Management -->
     <label for="rating">Time Management Rating:</label>
@@ -71,9 +74,10 @@ include 'connection.php';
         <option value="4">4</option>
         <option value="5">5</option>
     </select>
+    <br><br>
 
     <!-- Comment -->
-    <input type="text" name="comment" placeholder="Optional."><br>
+    Comment:<input type="text" name="comment" placeholder="Optional."><br>
 
     <input type="submit" value="Sign Up" name="signup">
 </form>
