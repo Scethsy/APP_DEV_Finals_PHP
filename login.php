@@ -1,7 +1,10 @@
 <!-- Page where users logs in -->
 <!-- initial page after register -->
 <?php 
-
+    if (isset($_GET['signup']) && $_GET['signup'] == 'success') {
+        echo "Sign Up Successful! Please login.";
+    }
+    
     if (isset($_POST['Login'])) {
         $email = $_POST['email'];
         $pass = $_POST['pass'];

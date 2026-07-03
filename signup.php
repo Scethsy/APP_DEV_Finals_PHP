@@ -1,8 +1,40 @@
 <?php 
 include 'connection.php';
 
-    $universities = mysqli_query($conn, "SELECT uni_id, uni_name FROM universities");
+if (isset($_POST['signup'])) {
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $email = $_POST['email'];
+    $pass = $_POST['pass'];
+    $pass2 = $_POST['pass2'];
+    $uni_id = $_POST['uni_id'];
 
+    if ($pass == $pass2) {
+        $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO users(fname, lname, email, password, uni_id)
+                VALUES('$fname', '$lname', '$email', '$hashedPassword', '$uni_id')";
+
+        $result = mysqli_query($conn, $sql);
+
+        if ($result) {
+            header("Location: login.php?signup=success");
+            exit();
+        } else {
+            $error = "Error while signing up.";
+        }
+    } else {
+        $error = "Passwords do not match!";
+    }
+}
+
+$universities = mysqli_query($conn, "SELECT uni_id, uni_name FROM universities");
+?>
+
+<?php
+if (isset($error)) {
+    echo $error;
+}
 ?>
 
 <form method="post">
@@ -12,8 +44,8 @@ include 'connection.php';
     Password:<input type="password" name="pass" placeholder="Password" required><br>
     Confirm Password:<input type="password" name="pass2" placeholder="Confirm Password" required><br>
 
-    <!-- University Dropdown -->
-    University: <select name="uni_id" required>
+    University:
+    <select name="uni_id" required>
         <option value="">-- Select University --</option>
 
         <?php
@@ -23,41 +55,7 @@ include 'connection.php';
             echo "</option>";
         }
         ?>
-
     </select><br><br>
 
     <input type="submit" value="Sign Up" name="signup">
 </form>
-
-<?php
-if (isset($_POST['signup'])) {
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $email = $_POST['email'];
-    $pass = $_POST['pass'];
-    $pass2 = $_POST['pass2'];
-    $uni_id= $_POST['uni_id'];
-
-    if ($pass == $pass2){
-
-        $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
-
-        $sql = "INSERT INTO users(fname, lname, email, password, uni_id)
-                VALUES('$fname', '$lname', '$email', '$hashedPassword', '$uni_id')";
-
-        $result = mysqli_query($conn, $sql);
-        
-        if ($result){
-            echo "Sign Up Successful! Please proceed to Login!";
-        } else {
-            echo "Error while signing up.";
-        }
-
-        mysqli_close($conn);
-        
-    } else{
-        echo "Password do not match!";
-    }
-
-}
-?>
