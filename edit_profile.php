@@ -13,11 +13,12 @@ $result = mysqli_query($conn, $sql);
 $user = mysqli_fetch_assoc($result);
 ?>
 <form method="post" action="profile.php">
+    <!-- Name -->
     <input type = "text" name = "fname" value = "<?php echo htmlspecialchars($user['fname']); ?>" required>
-
     <input type = "text" name = "lname" value = "<?php echo htmlspecialchars($user['lname']); ?>" required>
-
+    <!-- Email -->
     <input type = "email" name = "email" value = "<?php echo htmlspecialchars($user['email']); ?>" required>
+    <!-- University -->
 
     <input type="submit" value="Sign Up" name="signup">
 </form>
