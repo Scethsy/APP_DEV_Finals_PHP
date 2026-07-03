@@ -2,11 +2,11 @@
 include 'connection.php';
 
 if (isset($_POST['signup'])) {
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $email = $_POST['email'];
-    $pass = $_POST['pass'];
-    $pass2 = $_POST['pass2'];
+    $fname = ucwords(strtolower(trim($_POST['fname'])));
+    $lname = ucwords(strtolower(trim($_POST['lname'])));
+    $email = strtolower(trim($_POST['email']));
+    $pass = trim($_POST['pass']);
+    $pass2 = trim($_POST['pass2']);
     $uni_id = $_POST['uni_id'];
 
     if ($pass == $pass2) {

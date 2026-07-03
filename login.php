@@ -4,10 +4,10 @@
     if (isset($_GET['signup']) && $_GET['signup'] == 'success') {
         echo "Sign Up Successful! Please login.";
     }
-    
+
     if (isset($_POST['Login'])) {
-        $email = $_POST['email'];
-        $pass = $_POST['pass'];
+        $email = strtolower(trim($_POST['email']));
+        $pass = trim($_POST['pass']);
     
         include 'connection.php';
 
