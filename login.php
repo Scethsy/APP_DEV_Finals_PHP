@@ -8,26 +8,29 @@
     
         include 'connection.php';
 
-        $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$pass'";
+        $sql = "SELECT * FROM users WHERE email = '$email'";
         $result = mysqli_query($conn, $sql);
         $numrows = mysqli_num_rows($result);
 
         if($numrows==1){
             $row = mysqli_fetch_array($result);
-            session_start();
-            $_SESSION['user_id'] = $row['user_id'];
-            $_SESSION['user'] = $row['fname'] . " " . $row['lname'];
+            
+            if(password_verify($pass, $row['password'])){
+                session_start();
 
-            header("location: profile.php");
-        } else {
+                $_SESSION['user_id'] = $row['user_id'];
+                $_SESSION['user'] = $row['fname'] . " " . $row['lname'];
+
+                header("location: profile.php");
+                exit();
+            } else {
             echo "Invalid login credentials.";
+            }
         }
-    
     }
-
 ?>
 
-<h2> login </h2>
+<h2> Login to LectSure! </h2>
 
 <form method="post">
     <input type="email" name="email" placeholder="Email" required><br>
