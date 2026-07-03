@@ -5,13 +5,6 @@ $universities = mysqli_query($conn, "SELECT uni_id, uni_name FROM universities")
 
 <nav>
     <a href="profile.php">Profile</a>
-<?php
-include 'connection.php';
-$universities = mysqli_query($conn, "SELECT uni_id, uni_name FROM universities");
-?>
-
-<nav>
-    <a href="profile.php">Profile</a>
 
     <form method="get" action="school.php" style="display:inline;">
         <select name="uni_id" onchange="this.form.submit()">
@@ -24,11 +17,6 @@ $universities = mysqli_query($conn, "SELECT uni_id, uni_name FROM universities")
             <?php } ?>
         </select>
     </form>
-
-    <a href="logout.php">Logout</a>
-</nav>
-
-    </a>
 
     <a href="logout.php">Logout</a>
 </nav>
