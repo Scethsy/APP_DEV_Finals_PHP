@@ -15,6 +15,7 @@
         if($numrows==1){
             $row = mysqli_fetch_array($result);
             session_start();
+            $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['user'] = $row['fname'] . " " . $row['lname'];
 
             header("location: profile.php");
