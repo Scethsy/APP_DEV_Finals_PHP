@@ -43,7 +43,7 @@ if (isset($_POST['signup'])) {
         $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO users(fname, lname, email, password, uni_id)
-                VALUES('$fname', '$lname', '$email', '$pass', '$uni_id')";
+                VALUES('$fname', '$lname', '$email', '$hashedPassword', '$uni_id')";
 
         $result = mysqli_query($conn, $sql);
         
@@ -52,6 +52,9 @@ if (isset($_POST['signup'])) {
         } else {
             echo "Error while signing up.";
         }
+
+        mysqli_close($conn);
+        
     } else{
         echo "Password do not match!";
     }
