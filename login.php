@@ -1,2 +1,2 @@
-<!-- Page where users may edit their previous reviews -->
+<!-- Page where users logs in -->
 <!-- initial page after register -->
