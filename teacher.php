@@ -1,4 +1,4 @@
 <!-- Page where users may view teacher's reviews -->
 <!-- Accessed through school.php -->
 
-Teacher Page
+<?php    include 'navbar.php'; ?>

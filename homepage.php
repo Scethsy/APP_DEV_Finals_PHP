@@ -1,9 +1,4 @@
 <!-- Page for Navigation -->
 <!-- Access through login.php -->
 
-
-<?php
-
-    
-
-?>
+<?php   include 'navbar.php'; ?>

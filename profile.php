@@ -7,6 +7,7 @@
     if(!isset($_SESSION['user'])){
         header("location: login.php");
     }
+    include 'navbar.php';
 ?>
 
 <h1> Welcome <?php echo $_SESSION['user']; ?>! </h1>
