@@ -59,3 +59,5 @@ if (isset($error)) {
 
     <input type="submit" value="Sign Up" name="signup">
 </form>
+
+Already have an account? <a href="login.php">login</a>.
