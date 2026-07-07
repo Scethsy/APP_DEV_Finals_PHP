@@ -21,7 +21,7 @@ $user = mysqli_fetch_assoc($result);
     <!-- Name -->
     <input type = "text" name = "fname" value = "<?php echo htmlspecialchars($user['fname']); ?>" required><br>
     <input type = "text" name = "lname" value = "<?php echo htmlspecialchars($user['lname']); ?>" required><br>
-    <input type = "text" date = "bday" required><br>
+    <input type = "date" date = "bday" required><br>
     <!-- Email -->
     <input type = "email" name = "email" value = "<?php echo htmlspecialchars($user['email']); ?>" required><br>
     <!-- Password -->
