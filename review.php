@@ -83,7 +83,7 @@ if ($choice == "add") { //Add New Teacher
 <!-- Review Form -->
 <?php if (isset($_POST['teacher_id'])) {?>
 
-    <form method = "post" action = "teacher.php">
+    <form method = "post">
         <h5> Review Form </h5>
         <!-- Course Code -->
         Course Code:
@@ -159,7 +159,7 @@ if (isset($_POST['signup'])) {
     $review_result = mysqli_query($conn, $sql);
     
     if ($review_result) {
-        echo "Review Successfully Added.";
+        header("Location: teacher.php?review=success");
     } else {
         die("Error adding teacher: " . mysqli_error($conn));
     }
