@@ -13,14 +13,15 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-$sql = "SELECT fname, lname, email, uni_id FROM users WHERE user_id = $user_id";
+$sql = "SELECT fname, lname, email, uni_id, bday FROM users WHERE user_id = $user_id";
 $result = mysqli_query($conn, $sql);
 $user = mysqli_fetch_assoc($result);
 ?>
-<form method="post" action="profile.php">
+<form method="post" action="">
     <!-- Name -->
     <input type = "text" name = "fname" value = "<?php echo htmlspecialchars($user['fname']); ?>" required><br>
     <input type = "text" name = "lname" value = "<?php echo htmlspecialchars($user['lname']); ?>" required><br>
+    <input type = "text" date = "bday" required><br>
     <!-- Email -->
     <input type = "email" name = "email" value = "<?php echo htmlspecialchars($user['email']); ?>" required><br>
     <!-- Password -->
@@ -49,30 +50,43 @@ $user = mysqli_fetch_assoc($result);
 
 <?php
 if (isset($_POST['signup'])) {
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $email = $_POST['email'];
-    $pass = $_POST['pass'];
-    $pass2 = $_POST['pass2'];
-    $uni_id= $_POST['uni_id'];
+    $fname = ucwords(strtolower(trim($_POST['fname'])));
+    $lname = ucwords(strtolower(trim($_POST['lname'])));
+    $bday = $_POST['bday'];
+    $email = strtolower(trim($_POST['email']));
+    $pass = trim($_POST['pass']);
+    $pass2 = trim($_POST['pass2']);
+    $uni_id = $_POST['uni_id'];
 
-    if ($pass == $pass2){
+    if ($pass !="" || $pass2 != "") {
+        if ($pass == $pass2){
 
-        $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
+            $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO users(fname, lname, email, password, uni_id)
-                VALUES('$fname', '$lname', '$email', '$pass', '$uni_id')";
+            $sql = "UPDATE users
+                    SET fname='$fname', lname='$lname', email='$email', password='$hashedPassword', uni_id='$uni_id';
+                    WHERE user_id = '$user_id'";
 
-        $result = mysqli_query($conn, $sql);
-        
-        if ($result){
-            echo "Profile Updated!";
+            $result = mysqli_query($conn, $sql);
+            
+            if ($result){
+                echo "Profile Updated!";
+            } else {
+                echo "Error while signing up.";
+            }
+        } else{
+            echo "Password do not match!";
         } else {
-            echo "Error while signing up.";
+        
+        $sql = "UPDATE users 
+                SET fname='$fname', lname='$lname', email='$email', uni_id='$uni_id'
+                WHERE user_id='$user_id'";
         }
-    } else{
-        echo "Password do not match!";
     }
 
+    if ($result) {
+        header("Location: profile.php?updated=success");
+        exit();
+    }
 }
 ?>

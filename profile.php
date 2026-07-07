@@ -8,7 +8,11 @@
         header("location: login.php");
         exit();
     }
-    
+
+    if (isset($_GET['updated']) && $_GET['updated'] == 'success') {
+        echo "Profile updated successfully!";
+    }
+
     include 'navbar.php';
 ?>
 
