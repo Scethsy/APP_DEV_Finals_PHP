@@ -10,8 +10,12 @@
     include 'navbar.php';
 ?>
 
-<h1> Welcome <?php echo $_SESSION['user']; ?>! </h1>
+<h1> Welcome <?php echo $_SESSION['user']; ?>! </h1><br>
+Name: <?php echo $_SESSION['user']; ?> <br>
+Birthday: <?php echo $_SESSION['bday']; ?><br>
+University: <?php echo $_SESSION['uni_name']; ?> <br>
 
-<a href="edit_profile.php">Edit Profile </a>
+
+<a href="edit_profile.php">Edit Profile </a><br>
 
 <a href="logout.php">logout</a>

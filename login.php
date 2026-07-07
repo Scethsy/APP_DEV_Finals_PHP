@@ -11,7 +11,10 @@
     
         include 'connection.php';
 
-        $sql = "SELECT * FROM users WHERE email = '$email'";
+        $sql = "SELECT users.*, universities.uni_name
+                FROM users 
+                JOIN universities ON users.uni_id = universities.uni_id
+                WHERE users.email = '$email'";
         $result = mysqli_query($conn, $sql);
         $numrows = mysqli_num_rows($result);
 
@@ -23,6 +26,9 @@
 
                 $_SESSION['user_id'] = $row['user_id'];
                 $_SESSION['user'] = $row['fname'] . " " . $row['lname'];
+                $_SESSION['bday'] = $row['bday'];
+                $_SESSION['uni_id'] = $row['uni_id'];
+                $_SESSION['uni_name'] = $row['uni_name'];
 
                 header("location: homepage.php");
                 exit();

@@ -4,6 +4,7 @@ include 'connection.php';
 if (isset($_POST['signup'])) {
     $fname = ucwords(strtolower(trim($_POST['fname'])));
     $lname = ucwords(strtolower(trim($_POST['lname'])));
+    $bday = $_POST['bday'];
     $email = strtolower(trim($_POST['email']));
     $pass = trim($_POST['pass']);
     $pass2 = trim($_POST['pass2']);
@@ -12,8 +13,8 @@ if (isset($_POST['signup'])) {
     if ($pass == $pass2) {
         $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO users(fname, lname, email, password, uni_id)
-                VALUES('$fname', '$lname', '$email', '$hashedPassword', '$uni_id')";
+        $sql = "INSERT INTO users(fname, lname, bday, email, password, uni_id)
+                VALUES('$fname', '$lname','$bday', '$email', '$hashedPassword', '$uni_id')";
 
         $result = mysqli_query($conn, $sql);
 
@@ -40,6 +41,7 @@ if (isset($error)) {
 <form method="post">
     First Name:<input type="text" name="fname" placeholder="Given name" required><br>
     Last Name:<input type="text" name="lname" placeholder="Surname" required><br>
+    Birthday: <input type="date" name="bday" required><br>
     Email: <input type="email" name="email" placeholder="Email" required><br>
     Password:<input type="password" name="pass" placeholder="Password" required><br>
     Confirm Password:<input type="password" name="pass2" placeholder="Confirm Password" required><br>
