@@ -76,13 +76,12 @@ if (isset($_POST['signup'])) {
             }
         } else{
             echo "Password do not match!";
-        } else {
-        
-        $sql = "UPDATE users 
-                SET fname='$fname', lname='$lname', email='$email', uni_id='$uni_id'
-                WHERE user_id='$user_id'";
+        } 
+    }else {
+            $sql = "UPDATE users 
+                    SET fname='$fname', lname='$lname', email='$email', uni_id='$uni_id'
+                    WHERE user_id='$user_id'";
         }
-    }
 
     if ($result) {
         header("Location: profile.php?updated=success");
