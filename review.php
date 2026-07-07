@@ -85,6 +85,9 @@ if ($choice == "add") { //Add New Teacher
 
     <form method = "post">
         <h5> Review Form </h5>
+        <?php $row_teacher = mysqli_fetch_assoc($teachers); 
+        var_dump($row_teacher);?>
+        Teacher: <?php //$teachers['teacher_fname'] . " " . $teachers['teacher_lname'];?>
         <!-- Course Code -->
         Course Code:
         <input type="text" name="course_code" placeholder="Course Code" required><br>
@@ -152,6 +155,7 @@ if (isset($_POST['signup'])) {
     $strict_level = $_POST['strict_level'];
     $time_man_rating = $_POST['time_man_rating'];
     $comments = $_POST['comments'];
+    $teacher_id = $_POST['teacher_id'];
 
     $sql = "INSERT INTO reviews(course_code, approach_rating, knowledge_rating, strict_level, time_man_rating, comments)
             VALUES('$course_code', '$approach_rating', '$knowledge_rating', '$strict_level', '$time_man_rating', '$comments')";
@@ -159,7 +163,8 @@ if (isset($_POST['signup'])) {
     $review_result = mysqli_query($conn, $sql);
     
     if ($review_result) {
-        header("Location: teacher.php?review=success");
+        header("Location: teacher.php?teacher_id=$teacher_id&review=success");
+        exit();
     } else {
         die("Error adding teacher: " . mysqli_error($conn));
     }
