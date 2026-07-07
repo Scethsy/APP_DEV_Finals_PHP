@@ -79,7 +79,7 @@ if (isset($_POST['signup'])) {
         } 
     }else {
             $sql = "UPDATE users 
-                    SET fname='$fname', lname='$lname', email='$email', uni_id='$uni_id'
+                    SET fname='$fname', lname='$lname', email='$email', bday '$bday', uni_id='$uni_id'
                     WHERE user_id='$user_id'";
         }
 
