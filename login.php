@@ -1,6 +1,7 @@
 <!-- Page where users logs in -->
 <!-- initial page after register -->
 <?php 
+    session_start();
     if (isset($_GET['signup']) && $_GET['signup'] == 'success') {
         echo "Sign Up Successful! Please login.";
     }
@@ -22,7 +23,6 @@
             $row = mysqli_fetch_array($result);
             
             if(password_verify($pass, $row['password'])){
-                session_start();
 
                 $_SESSION['user_id'] = $row['user_id'];
                 $_SESSION['user'] = $row['fname'] . " " . $row['lname'];

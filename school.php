@@ -1,9 +1,19 @@
 <!-- Page where users may edit their previous reviews -->
 <!-- Accessed through home.php -->
 
-<?php include 'navbar.php'; 
+<?php 
+
+session_start();
+
+if (!isset($_GET['uni_id']) || $_GET['uni_id'] == '') {
+    header("Location: homepage.php");
+    exit();
+}
 
 $uni_id = $_GET['uni_id'];
+
+include 'navbar.php'; 
+
 
 $sql = "SELECT * FROM teachers WHERE uni_id = '$uni_id'";
 $result = mysqli_query($conn, $sql);

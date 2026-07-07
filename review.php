@@ -1,6 +1,12 @@
 <!-- Page where users may create new reviews -->
 <!-- Accessed through home/school/teacher/.php -->
 <?php 
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
 include 'connection.php';
 
     $universities = mysqli_query($conn, "SELECT uni_id, uni_name FROM universities");

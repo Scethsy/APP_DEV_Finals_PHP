@@ -6,6 +6,11 @@
 session_start();
 include 'connection.php';
 
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
 $user_id = $_SESSION['user_id'];
 
 $sql = "SELECT fname, lname, email, uni_id FROM users WHERE user_id = $user_id";

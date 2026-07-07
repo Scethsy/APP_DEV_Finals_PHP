@@ -6,11 +6,13 @@
 
     if(!isset($_SESSION['user'])){
         header("location: login.php");
+        exit();
     }
+    
     include 'navbar.php';
 ?>
 
-<h1> Welcome <?php echo $_SESSION['user']; ?>! </h1><br>
+<h1> Welcome <?php echo $_SESSION['user']; ?>! </h1>
 Name: <?php echo $_SESSION['user']; ?> <br>
 Birthday: <?php echo $_SESSION['bday']; ?><br>
 University: <?php echo $_SESSION['uni_name']; ?> <br>
