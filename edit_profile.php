@@ -9,6 +9,9 @@ include 'connection.php';
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
+}
+
+$user_id = $_SESSION['user_id'];
 
 if (isset($_POST['signup'])) {
     $fname = ucwords(strtolower(trim($_POST['fname'])));
@@ -25,14 +28,15 @@ if (isset($_POST['signup'])) {
             $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
 
             $sql = "UPDATE users
-                    SET fname='$fname', lname='$lname', email='$email', password='$hashedPassword', uni_id='$uni_id'
+                    SET fname='$fname', lname='$lname', email='$email', bday='$bday', password='$hashedPassword', uni_id='$uni_id'
                     WHERE user_id = '$user_id'";
 
             $result = mysqli_query($conn, $sql);
             
-            if ($result){
-                echo "Profile Updated!";
-            } else {
+            if ($result) {
+                    header("Location: profile.php?updated=success");
+                    exit();
+            }else {
                 echo "Error while signing up.";
             }
         } else{
@@ -42,26 +46,28 @@ if (isset($_POST['signup'])) {
             $sql = "UPDATE users 
                     SET fname='$fname', lname='$lname', email='$email', bday='$bday', uni_id='$uni_id'
                     WHERE user_id='$user_id'";
+            
+            $result = mysqli_query($conn, $sql);
+            if ($result) {
+                    header("Location: profile.php?updated=success");
+                    exit();
+            }
         }
 
-    if ($result) {
-        header("Location: profile.php?updated=success");
-        exit();
-    }
-}
 }
 
-$user_id = $_SESSION['user_id'];
 
 $sql = "SELECT fname, lname, email, uni_id, bday FROM users WHERE user_id = $user_id";
 $result = mysqli_query($conn, $sql);
 $user = mysqli_fetch_assoc($result);
+
 ?>
+
 <form method="post" action="">
     <!-- Name -->
     <input type = "text" name = "fname" value = "<?php echo htmlspecialchars($user['fname']); ?>" required><br>
     <input type = "text" name = "lname" value = "<?php echo htmlspecialchars($user['lname']); ?>" required><br>
-    <input type = "date" name = "bday" required><br>
+    <input type="date" name="bday" value="<?php echo htmlspecialchars($user['bday']); ?>" required><br>
     <!-- Email -->
     <input type = "email" name = "email" value = "<?php echo htmlspecialchars($user['email']); ?>" required><br>
     <!-- Password -->
