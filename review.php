@@ -59,27 +59,29 @@ if ($choice == "add") { //Add New Teacher
 
         <input type="submit" value="Submit" name="signup">
     </form>
-    <?php
-    if (isset($_POST['signup'])) {
-        $uni_id = $_POST['uni_id'];
-        $teacher_fname = $_POST['teacher_fname'];
-        $teacher_lname = $_POST['teacher_lname'];
+<?php
+}
+if (isset($_POST['signup'])) { 
+    $uni_id = $_POST['uni_id'];
+    $teacher_fname = $_POST['teacher_fname'];
+    $teacher_lname = $_POST['teacher_lname'];
 
-        $sql = "INSERT INTO teachers(teacher_fname, teacher_lname, uni_id)
-                VALUES ('$teacher_fname', '$teacher_lname', '$uni_id')";
+    $sql = "INSERT INTO teachers(teacher_fname, teacher_lname, uni_id)
+            VALUES ('$teacher_fname', '$teacher_lname', '$uni_id')";
 
-        $teacher_result = mysqli_query($conn, $sql);
+    $teacher_result = mysqli_query($conn, $sql);
 
-        if ($teacher_result) {
-            $teacher_id = mysqli_insert_id($conn);
-        } else {
-            die("Error adding teacher: " . mysqli_error($conn));
-        }
+    if ($teacher_result) {
+        header("Location: review.php");
+        exit();
+    } else {
+        die("Error adding teacher: " . mysqli_error($conn));
     }
+}
 
-}?>
+?>
 <!-- Review Form -->
-<?php if (isset($_POST['choice'])) {?>
+<?php if (isset($_POST['choice']) && filter_var($_POST['choice'], FILTER_VALIDATE_INT) !== false /* Tentative Condition */) {  ?>
 
     <form method = "post">
         <h5> Review Form </h5>
