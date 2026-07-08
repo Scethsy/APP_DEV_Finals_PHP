@@ -31,6 +31,4 @@ $teacher_sql = "SELECT teachers.*, universities.uni_name
 
 $teacher_result = mysqli_query($conn, $teacher_sql);
 $teacher = mysqli_fetch_assoc($teacher_result);
-
-
 ?>
