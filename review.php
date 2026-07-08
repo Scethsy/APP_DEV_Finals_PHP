@@ -85,11 +85,9 @@ if ($choice == "add") { //Add New Teacher
 
     <form method = "post">
         <h5> Review Form </h5>
-        <?php $teacher_id = $_POST["teacher_id"];
-        $t_id = mysqli_query($conn, "SELECT teacher_id, teacher_fname, teacher_lname, uni_id FROM teachers WHERE teacher_id='$teacher_id'");
-        $fakerow = mysqli_fetch_assoc($t_id);
-        ?>
-        Teacher: <?php echo $fakerow['teacher_fname'] . " " . $fakerow['teacher_lname']; ?>
+        <?php $row_teacher = mysqli_fetch_assoc($teachers); 
+        var_dump($row_teacher);?>
+        Teacher: <?php //$teachers['teacher_fname'] . " " . $teachers['teacher_lname'];?>
         <!-- Course Code -->
         Course Code:
         <input type="text" name="course_code" placeholder="Course Code" required><br>
@@ -145,14 +143,12 @@ if ($choice == "add") { //Add New Teacher
 
         <!-- Comments -->
         Comments:<input type="text" name="comments" placeholder="Optional."><br>
-    
-        <input type="hidden" name="teacher_id" value="<?php echo htmlspecialchars($teacher_id); ?>">
 
-        <input type="submit" value="Submit Review" name="signup2">
+        <input type="submit" value="Submit Review" name="signup">
     </form>
 <?php
 }
-if (isset($_POST['signup2'])) {
+if (isset($_POST['signup'])) {
     $course_code = $_POST['course_code'];
     $approach_rating = $_POST['approach_rating'];
     $knowledge_rating = $_POST['knowledge_rating'];
@@ -160,10 +156,9 @@ if (isset($_POST['signup2'])) {
     $time_man_rating = $_POST['time_man_rating'];
     $comments = $_POST['comments'];
     $teacher_id = $_POST['teacher_id'];
-    $user_id = $_SESSION['user_id'];
 
-    $sql = "INSERT INTO reviews(user_id, teacher_id, course_code, approach_rating, knowledge_rating, strict_level, time_man_rating, comments)
-            VALUES($user_id, '$teacher_id', '$course_code', '$approach_rating', '$knowledge_rating', '$strict_level', '$time_man_rating', '$comments')";
+    $sql = "INSERT INTO reviews(course_code, approach_rating, knowledge_rating, strict_level, time_man_rating, comments)
+            VALUES('$course_code', '$approach_rating', '$knowledge_rating', '$strict_level', '$time_man_rating', '$comments')";
 
     $review_result = mysqli_query($conn, $sql);
     
