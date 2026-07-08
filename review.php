@@ -69,8 +69,6 @@ if ($choice == "add") { //Add New Teacher
                 VALUES ('$teacher_fname', '$teacher_lname', '$uni_id')";
 
         $teacher_result = mysqli_query($conn, $sql);
-    
-        $teacher_result = mysqli_query($conn, $teacher_sql);
 
         if ($teacher_result) {
             $teacher_id = mysqli_insert_id($conn);
@@ -85,12 +83,13 @@ if ($choice == "add") { //Add New Teacher
 
     <form method = "post">
         <h5> Review Form </h5>
-        <?php $teacher_id = $_POST["teacher_id"];
+        <?php $teacher_id = $_POST["choice"];
         $t_id = mysqli_query($conn, "SELECT teacher_id, teacher_fname, teacher_lname, uni_id FROM teachers WHERE teacher_id='$teacher_id'");
         $fakerow = mysqli_fetch_assoc($t_id);
         ?>
         Teacher: <?php echo $fakerow['teacher_fname'] . " " . $fakerow['teacher_lname']; ?>
         <!-- Course Code -->
+        <br>
         Course Code:
         <input type="text" name="course_code" placeholder="Course Code" required><br>
 
