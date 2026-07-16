@@ -57,7 +57,7 @@
         <label>Approachable Rating:</label>
         <select name="approach_rating" required>
             <option value="">Select a rating</option>
-            <?php for ($i = 1; $i <= 5; $i++) { ?>
+            <?php for ($i = 0; $i <= 5; $i++) { ?>
                 <option value="<?php echo $i; ?>" <?php if ($reviews['approach_rating'] == $i) echo "selected"; ?>>
                     <?php echo $i; ?>
                 </option>
@@ -69,7 +69,7 @@
         <label for="rating">Knowledgeable Rating:</label>
         <select id="rating" name="knowledge_rating" required>
             <option value="">Select a rating</option>
-            <?php for ($i = 1; $i <= 5; $i++) { ?>
+            <?php for ($i = 0; $i <= 5; $i++) { ?>
                 <option value="<?php echo $i; ?>" <?php if ($reviews['knowledge_rating'] == $i) echo "selected"; ?>>
                     <?php echo $i; ?>
                 </option>
@@ -81,7 +81,7 @@
         <label for="rating">Strict Level Rating:</label>
         <select id="rating" name="strict_level" required>
             <option value="">Select a rating</option>
-            <?php for ($i = 1; $i <= 5; $i++) { ?>
+            <?php for ($i = 0; $i <= 5; $i++) { ?>
                 <option value="<?php echo $i; ?>" <?php if ($reviews['strict_level'] == $i) echo "selected"; ?>>
                     <?php echo $i; ?>
                 </option>
@@ -93,7 +93,7 @@
         <label for="rating">Time Management Rating:</label>
         <select id="rating" name="time_man_rating" required>
             <option value="">Select a rating</option>
-            <?php for ($i = 1; $i <= 5; $i++) { ?>
+            <?php for ($i = 0; $i <= 5; $i++) { ?>
                 <option value="<?php echo $i; ?>" <?php if ($reviews['time_man_rating'] == $i) echo "selected"; ?>>
                     <?php echo $i; ?>
                 </option>

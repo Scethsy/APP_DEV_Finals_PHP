@@ -100,6 +100,7 @@ if (isset($_POST['signup'])) {
         <label for="rating">Approachable Rating:</label>
         <select id="rating" name="approach_rating" required>
             <option value="">Select a rating</option>
+            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -112,6 +113,7 @@ if (isset($_POST['signup'])) {
         <label for="rating">Knowledgeable Rating:</label>
         <select id="rating" name="knowledge_rating" required>
             <option value="">Select a rating</option>
+            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -124,6 +126,7 @@ if (isset($_POST['signup'])) {
         <label for="rating">Strict Level Rating:</label>
         <select id="rating" name="strict_level" required>
             <option value="">Select a rating</option>
+            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -136,6 +139,7 @@ if (isset($_POST['signup'])) {
         <label for="rating">Time Management Rating:</label>
         <select id="rating" name="time_man_rating" required>
             <option value="">Select a rating</option>
+            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
