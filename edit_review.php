@@ -106,5 +106,5 @@
 
         <input type="hidden" name="review_id" value="<?php echo $review_id; ?>">
 
-        <input type="submit" value="Submit Review" name="update_review">
+        <input type="submit" value="Edit Review" name="update_review">
     </form>
