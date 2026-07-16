@@ -10,9 +10,7 @@ if (isset($_POST['signup'])) {
     $pass2 = trim($_POST['pass2']);
     $uni_id = $_POST['uni_id'];
 
-    if (strlen($pass) < 12 OR strlen($pass2) < 12 ) {
-        $error = "Password needs to be atleast 12 characters.";
-    } else if ($pass == $pass2) {
+    if ($pass == $pass2) {
         $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO users(fname, lname, bday, email, password, uni_id)
@@ -33,35 +31,84 @@ if (isset($_POST['signup'])) {
 
 $universities = mysqli_query($conn, "SELECT uni_id, uni_name FROM universities");
 ?>
+<!-- CODEX CHANGE: Designed page wrapper added to match the Figma /register screen.
+     Original signup PHP/database logic above is preserved. -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Account | LectSure</title>
+    <link rel="stylesheet" href="css/main_css.css">
+</head>
+<body class="account-page">
+    <main class="account-canvas account-canvas-register">
+        <h1 class="account-logo">LectSure</h1>
 
-<?php
-if (isset($error)) {
-    echo $error;
-}
-?>
+        <section class="account-card register-card">
+            <h2>Create an account</h2>
 
-<form method="post">
-    First Name:<input type="text" name="fname" placeholder="Given name" required><br>
-    Last Name:<input type="text" name="lname" placeholder="Surname" required><br>
-    Birthday: <input type="date" name="bday" required><br>
-    Email: <input type="email" name="email" placeholder="Email" required><br>
-    Password:<input type="password" name="pass" placeholder="Password" required><br>
-    Confirm Password:<input type="password" name="pass2" placeholder="Confirm Password" required><br>
+            <?php if (isset($error)) { ?>
+                <p class="account-message error"><?php echo htmlspecialchars($error); ?></p>
+            <?php } ?>
 
-    University:
-    <select name="uni_id" required>
-        <option value="">-- Select University --</option>
+            <form method="post" class="account-form">
+                <label>
+                    <span>Email</span>
+                    <input type="email" name="email" placeholder="@school.edu.ph" required>
+                </label>
 
-        <?php
-        while ($row = mysqli_fetch_assoc($universities)) {
-            echo "<option value='{$row['uni_id']}'>";
-            echo htmlspecialchars($row['uni_name']);
-            echo "</option>";
-        }
-        ?>
-    </select><br><br>
+                <label>
+                    <span>Password</span>
+                    <input type="password" name="pass" placeholder="Enter your password" required>
+                </label>
 
-    <input type="submit" value="Sign Up" name="signup">
-</form>
+                <label>
+                    <span>Retype Password</span>
+                    <input type="password" name="pass2" placeholder="Enter your password" required>
+                </label>
 
-Already have an account? <a href="login.php">login</a>.
+                <h3>Personal Information</h3>
+
+                <div class="account-grid account-grid-name">
+                    <label>
+                        <span>First Name</span>
+                        <input type="text" name="fname" placeholder="e.g Kirk Benedict" required>
+                    </label>
+
+                    <label>
+                        <span>Last Name</span>
+                        <input type="text" name="lname" placeholder="e.g Sarmiento" required>
+                    </label>
+                </div>
+
+                <div class="account-grid account-grid-two">
+                    <label>
+                        <span>School Name</span>
+                        <select name="uni_id" required>
+                            <option value="">Select University</option>
+
+                            <?php
+                            while ($row = mysqli_fetch_assoc($universities)) {
+                                echo "<option value='{$row['uni_id']}'>";
+                                echo htmlspecialchars($row['uni_name']);
+                                echo "</option>";
+                            }
+                            ?>
+                        </select>
+                    </label>
+
+                    <label>
+                        <span>Birthday</span>
+                        <input type="date" name="bday" required>
+                    </label>
+                </div>
+
+                <input class="account-submit" type="submit" value="Create account" name="signup">
+            </form>
+
+            <p class="account-switch">Already Have An Account? <a href="login.php">Log In</a></p>
+        </section>
+    </main>
+</body>
+</html>

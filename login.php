@@ -2,8 +2,14 @@
 <!-- initial page after register -->
 <?php 
     session_start();
+
+    /* CODEX CHANGE: Store status text in variables so messages appear inside
+       the designed login card instead of printing as plain text above it. */
+    $success_message = "";
+    $error_message = "";
+
     if (isset($_GET['signup']) && $_GET['signup'] == 'success') {
-        echo "Sign Up Successful! Please login.";
+        $success_message = "Sign Up Successful! Please login.";
     }
 
     if (isset($_POST['Login'])) {
@@ -33,19 +39,54 @@
                 header("location: homepage.php");
                 exit();
             } else {
-            echo "Invalid login credentials.";
+                $error_message = "Invalid login credentials.";
             }
+        } else {
+            $error_message = "Invalid login credentials.";
         }
     }
 ?>
+<!-- CODEX CHANGE: Designed page wrapper added to match the Figma /login screen.
+     No JavaScript is used; original login PHP logic above is preserved. -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login | LectSure</title>
+    <link rel="stylesheet" href="css/main_css.css">
+</head>
+<body class="account-page">
+    <main class="account-canvas account-canvas-login">
+        <h1 class="account-logo">LectSure</h1>
 
-<h2> Login to LectSure! </h2>
+        <section class="account-card login-card">
+            <h2>Login to your school account</h2>
 
-<form method="post">
-    <input type="email" name="email" placeholder="Email" required><br>
-    <input type="password" name="pass" placeholder="Password" required><br>
-    <input type="submit" value="Login" name = "Login">
+            <?php if ($success_message !== "") { ?>
+                <p class="account-message success"><?php echo htmlspecialchars($success_message); ?></p>
+            <?php } ?>
 
-</form>
+            <?php if ($error_message !== "") { ?>
+                <p class="account-message error"><?php echo htmlspecialchars($error_message); ?></p>
+            <?php } ?>
 
-Don't have an account for LectSure? Click here to <a href="signup.php"> Sign Up</a>!
+            <form method="post" class="account-form">
+                <label>
+                    <span>Email</span>
+                    <input type="email" name="email" placeholder="@school.edu.ph" required>
+                </label>
+
+                <label>
+                    <span>Password</span>
+                    <input type="password" name="pass" placeholder="Enter your password" required>
+                </label>
+
+                <input class="account-submit" type="submit" value="Login now" name="Login">
+            </form>
+
+            <p class="account-switch">Don't Have An Account? <a href="signup.php">Sign Up</a></p>
+        </section>
+    </main>
+</body>
+</html>

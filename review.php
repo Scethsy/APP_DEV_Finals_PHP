@@ -17,7 +17,7 @@ include 'connection.php';
 ?>
 <!-- Form Existing Or New Professor -->
 <form method = "POST">
-    <select name="choice" onchange="this.form.submit()">
+    <select name="teacher_id" onchange="this.form.submit()">
         <option value="">-- Select Existing Teachers --</option>
 
         <?php
@@ -32,7 +32,7 @@ include 'connection.php';
     </select><br><br>
 </form>
 <?php
-$choice = $_POST['choice'] ?? "";
+$choice = $_POST['teacher_id'] ?? "";
 if ($choice == "add") { //Add New Teacher
 ?>
 <!-- Form For New Professor -->
@@ -59,39 +59,36 @@ if ($choice == "add") { //Add New Teacher
 
         <input type="submit" value="Submit" name="signup">
     </form>
-<?php
-}
-if (isset($_POST['signup'])) { 
-    $uni_id = $_POST['uni_id'];
-    $teacher_fname = $_POST['teacher_fname'];
-    $teacher_lname = $_POST['teacher_lname'];
+    <?php
+    if (isset($_POST['signup'])) {
+        $uni_id = $_POST['uni_id'];
+        $teacher_fname = $_POST['teacher_fname'];
+        $teacher_lname = $_POST['teacher_lname'];
 
-    $sql = "INSERT INTO teachers(teacher_fname, teacher_lname, uni_id)
-            VALUES ('$teacher_fname', '$teacher_lname', '$uni_id')";
+        $sql = "INSERT INTO teachers(teacher_fname, teacher_lname, uni_id)
+                VALUES ('$teacher_fname', '$teacher_lname', '$uni_id')";
 
-    $teacher_result = mysqli_query($conn, $sql);
+        $teacher_result = mysqli_query($conn, $sql);
+    
+        $teacher_result = mysqli_query($conn, $teacher_sql);
 
-    if ($teacher_result) {
-        header("Location: review.php");
-        exit();
-    } else {
-        die("Error adding teacher: " . mysqli_error($conn));
+        if ($teacher_result) {
+            $teacher_id = mysqli_insert_id($conn);
+        } else {
+            die("Error adding teacher: " . mysqli_error($conn));
+        }
     }
-}
 
-?>
+}?>
 <!-- Review Form -->
-<?php if (isset($_POST['choice']) && filter_var($_POST['choice'], FILTER_VALIDATE_INT) !== false /* Tentative Condition */) {  ?>
+<?php if (isset($_POST['teacher_id'])) {?>
 
     <form method = "post">
         <h5> Review Form </h5>
-        <?php $teacher_id = $_POST["choice"];
-        $t_id = mysqli_query($conn, "SELECT teacher_id, teacher_fname, teacher_lname, uni_id FROM teachers WHERE teacher_id='$teacher_id'");
-        $fakerow = mysqli_fetch_assoc($t_id);
-        ?>
-        Teacher: <?php echo $fakerow['teacher_fname'] . " " . $fakerow['teacher_lname']; ?>
+        <?php $row_teacher = mysqli_fetch_assoc($teachers); 
+        var_dump($row_teacher);?>
+        Teacher: <?php //$teachers['teacher_fname'] . " " . $teachers['teacher_lname'];?>
         <!-- Course Code -->
-        <br>
         Course Code:
         <input type="text" name="course_code" placeholder="Course Code" required><br>
 
@@ -100,7 +97,6 @@ if (isset($_POST['signup'])) {
         <label for="rating">Approachable Rating:</label>
         <select id="rating" name="approach_rating" required>
             <option value="">Select a rating</option>
-            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -113,7 +109,6 @@ if (isset($_POST['signup'])) {
         <label for="rating">Knowledgeable Rating:</label>
         <select id="rating" name="knowledge_rating" required>
             <option value="">Select a rating</option>
-            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -126,7 +121,6 @@ if (isset($_POST['signup'])) {
         <label for="rating">Strict Level Rating:</label>
         <select id="rating" name="strict_level" required>
             <option value="">Select a rating</option>
-            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -139,7 +133,6 @@ if (isset($_POST['signup'])) {
         <label for="rating">Time Management Rating:</label>
         <select id="rating" name="time_man_rating" required>
             <option value="">Select a rating</option>
-            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -150,25 +143,22 @@ if (isset($_POST['signup'])) {
 
         <!-- Comments -->
         Comments:<input type="text" name="comments" placeholder="Optional."><br>
-    
-        <input type="hidden" name="teacher_id" value="<?php echo htmlspecialchars($teacher_id); ?>">
 
-        <input type="submit" value="Submit Review" name="signup2">
+        <input type="submit" value="Submit Review" name="signup">
     </form>
 <?php
 }
-if (isset($_POST['signup2'])) {
-    $course_code = mysqli_real_escape_string($conn, $_POST['course_code']);    
+if (isset($_POST['signup'])) {
+    $course_code = $_POST['course_code'];
     $approach_rating = $_POST['approach_rating'];
     $knowledge_rating = $_POST['knowledge_rating'];
     $strict_level = $_POST['strict_level'];
     $time_man_rating = $_POST['time_man_rating'];
-    $comments = mysqli_real_escape_string($conn, $_POST['comments']);    
+    $comments = $_POST['comments'];
     $teacher_id = $_POST['teacher_id'];
-    $user_id = $_SESSION['user_id'];
 
-    $sql = "INSERT INTO reviews(user_id, teacher_id, course_code, approach_rating, knowledge_rating, strict_level, time_man_rating, comments)
-            VALUES($user_id, '$teacher_id', '$course_code', '$approach_rating', '$knowledge_rating', '$strict_level', '$time_man_rating', '$comments')";
+    $sql = "INSERT INTO reviews(course_code, approach_rating, knowledge_rating, strict_level, time_man_rating, comments)
+            VALUES('$course_code', '$approach_rating', '$knowledge_rating', '$strict_level', '$time_man_rating', '$comments')";
 
     $review_result = mysqli_query($conn, $sql);
     

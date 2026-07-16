@@ -11,7 +11,29 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$user_id = $_SESSION['user_id'];
+$user_id = (int) $_SESSION['user_id'];
+$edit_error = "";
+
+/* CODEX CHANGE: Delete-account handler added. It removes reviews owned by the
+   current user before deleting the user account, then clears the session. */
+if (isset($_POST['delete_account'])) {
+    $delete_reviews_sql = "DELETE FROM reviews WHERE user_id = ?";
+    $delete_reviews_stmt = mysqli_prepare($conn, $delete_reviews_sql);
+    mysqli_stmt_bind_param($delete_reviews_stmt, "i", $user_id);
+    mysqli_stmt_execute($delete_reviews_stmt);
+
+    $delete_user_sql = "DELETE FROM users WHERE user_id = ?";
+    $delete_user_stmt = mysqli_prepare($conn, $delete_user_sql);
+    mysqli_stmt_bind_param($delete_user_stmt, "i", $user_id);
+
+    if (mysqli_stmt_execute($delete_user_stmt)) {
+        session_destroy();
+        header("Location: account_deleted.php");
+        exit();
+    }
+
+    $edit_error = "Error while deleting account.";
+}
 
 if (isset($_POST['signup'])) {
     $fname = ucwords(strtolower(trim($_POST['fname'])));
@@ -37,10 +59,10 @@ if (isset($_POST['signup'])) {
                     header("Location: profile.php?updated=success");
                     exit();
             }else {
-                echo "Error while signing up.";
+                $edit_error = "Error while updating profile.";
             }
         } else{
-            echo "Password do not match!";
+            $edit_error = "Password do not match!";
         } 
     }else {
             $sql = "UPDATE users 
@@ -56,40 +78,110 @@ if (isset($_POST['signup'])) {
 
 }
 
+function e($value) {
+    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+}
 
-$sql = "SELECT fname, lname, email, uni_id, bday FROM users WHERE user_id = $user_id";
+function edit_profile_initials($name) {
+    $parts = preg_split('/\s+/', trim($name));
+    $initials = '';
+    foreach ($parts as $part) {
+        if ($part !== '') {
+            $initials .= strtoupper($part[0]);
+        }
+        if (strlen($initials) >= 2) {
+            break;
+        }
+    }
+    return $initials ?: 'LS';
+}
+
+/* CODEX CHANGE: User query expanded to include university name for the profile-edit
+   header while preserving the existing editable fields. */
+$sql = "SELECT users.fname, users.lname, users.email, users.uni_id, users.bday, universities.uni_name
+        FROM users
+        JOIN universities ON users.uni_id = universities.uni_id
+        WHERE users.user_id = $user_id";
 $result = mysqli_query($conn, $sql);
 $user = mysqli_fetch_assoc($result);
-
+$full_name = trim($user['fname'] . ' ' . $user['lname']);
+$profile_universities = mysqli_query($conn, "SELECT uni_id, uni_name FROM universities ORDER BY uni_name");
 ?>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Profile | LectSure</title>
+    <link rel="stylesheet" href="css/main_css.css">
+</head>
+<body>
+<?php include 'navbar.php'; ?>
 
-<form method="post" action="">
-    <!-- Name -->
-    <input type = "text" name = "fname" value = "<?php echo htmlspecialchars($user['fname']); ?>" required><br>
-    <input type = "text" name = "lname" value = "<?php echo htmlspecialchars($user['lname']); ?>" required><br>
-    <input type="date" name="bday" value="<?php echo htmlspecialchars($user['bday']); ?>" required><br>
-    <!-- Email -->
-    <input type = "email" name = "email" value = "<?php echo htmlspecialchars($user['email']); ?>" required><br>
-    <!-- Password -->
-    Enter New Password (Dont input if you don't want to change it)
-    <input type="password" name="pass" placeholder="Optional:"><br>
-    <input type="password" name="pass2" placeholder="Confirm Password"><br>
-    <!-- University -->
-    <select name="uni_id" required>
-        <option value="">Select University</option>
+<!-- CODEX CHANGE: Figma-inspired edit profile layout added. -->
+<main class="edit-profile-shell">
+    <section class="edit-profile-hero">
+        <div class="profile-avatar edit-profile-avatar"><?php echo e(edit_profile_initials($full_name)); ?></div>
+        <div>
+            <h1><?php echo e($full_name); ?></h1>
+            <p><?php echo e($user['uni_name']); ?></p>
+        </div>
+        <form method="post" class="delete-account-form">
+            <button type="submit" name="delete_account" class="delete-account-button">Delete Account</button>
+        </form>
+    </section>
 
-        <?php
-        $universities = mysqli_query($conn, "SELECT uni_id, uni_name FROM universities");
+    <?php if ($edit_error !== "") { ?>
+        <p class="profile-message profile-error"><?php echo e($edit_error); ?></p>
+    <?php } ?>
 
-        while ($row = mysqli_fetch_assoc($universities)) {
-            $selected = ($row['uni_id'] == $user['uni_id']) ? "selected" : "";
+    <form method="post" action="" class="edit-profile-form">
+        <label>
+            <span>First Name</span>
+            <input type="text" name="fname" value="<?php echo e($user['fname']); ?>" required>
+        </label>
 
-            echo "<option value='" . $row['uni_id'] . "' $selected>";
-            echo htmlspecialchars($row['uni_name']);
-            echo "</option>";
-        }
-        ?>
-    </select><br><br>
+        <label>
+            <span>Surname</span>
+            <input type="text" name="lname" value="<?php echo e($user['lname']); ?>" required>
+        </label>
 
-    <input type="submit" value="Edit Profile" name="signup">
-</form>
+        <label>
+            <span>Birthday</span>
+            <input type="date" name="bday" value="<?php echo e($user['bday']); ?>" required>
+        </label>
+
+        <label>
+            <span>Email</span>
+            <input type="email" name="email" value="<?php echo e($user['email']); ?>" required>
+        </label>
+
+        <label>
+            <span>School</span>
+            <select name="uni_id" required>
+                <option value="">Select University</option>
+                <?php while ($row = mysqli_fetch_assoc($profile_universities)) {
+                    $selected = ($row['uni_id'] == $user['uni_id']) ? "selected" : "";
+                    echo "<option value='" . $row['uni_id'] . "' $selected>";
+                    echo htmlspecialchars($row['uni_name']);
+                    echo "</option>";
+                } ?>
+            </select>
+        </label>
+
+        <div class="edit-profile-passwords">
+            <label>
+                <span>New Password</span>
+                <input type="password" name="pass" placeholder="Optional">
+            </label>
+            <label>
+                <span>Confirm Password</span>
+                <input type="password" name="pass2" placeholder="Confirm password">
+            </label>
+        </div>
+
+        <input type="submit" value="Save Profile" name="signup" class="profile-edit-button save-profile-button">
+    </form>
+</main>
+</body>
+</html>
