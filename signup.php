@@ -10,7 +10,9 @@ if (isset($_POST['signup'])) {
     $pass2 = trim($_POST['pass2']);
     $uni_id = $_POST['uni_id'];
 
-    if ($pass == $pass2) {
+    if (strlen($pass) < 12 OR strlen($pass2) < 12 ) {
+        $error = "Password needs to be atleast 12 characters.";
+    } else if ($pass == $pass2) {
         $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO users(fname, lname, bday, email, password, uni_id)
