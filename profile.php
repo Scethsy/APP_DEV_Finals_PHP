@@ -23,7 +23,7 @@
     
     $user_id = $_SESSION['user_id'];
 
-    if (isset($_POST['delete_review'])) {
+    if (isset($_POST['delete_review_confirm'])) {
     $review_id = $_POST['review_id'];
     $user_id = $_SESSION['user_id'];
 
@@ -92,10 +92,18 @@ University: <?php echo htmlspecialchars($_SESSION['uni_name']); ?><br>
             <p>Time Management: <?php echo htmlspecialchars($review['time_man_rating']); ?>/5</p>
             <p>Comments: <?php echo htmlspecialchars($review['comments']); ?></p>
             <p> <a href="edit_review.php?review_id=<?php echo $review['review_id']; ?>"> Edit Review </a> </p> 
-            <form method="post" action="profile.php">
+            <form method="post">
                 <input type="hidden" name="review_id" value="<?php echo $review['review_id']; ?>">
                 <input type="submit" name="delete_review" value="Delete">
             </form>
+
+            <?php if (isset($_POST['delete_review'])) {?> 
+            <form method = "post">
+                <input type="hidden" name="review_id" value="<?php echo $review['review_id']; ?>">
+                <input type="submit" name="delete_review_confirm" value="Are you sure?">
+            </form>
+
+            <?php } ?>
             <hr>
         </div>
     <?php } ?>
