@@ -154,12 +154,12 @@ if (isset($_POST['signup'])) {
 <?php
 }
 if (isset($_POST['signup2'])) {
-    $course_code = $_POST['course_code'];
+    $course_code = mysqli_real_escape_string($conn, $_POST['course_code']);    
     $approach_rating = $_POST['approach_rating'];
     $knowledge_rating = $_POST['knowledge_rating'];
     $strict_level = $_POST['strict_level'];
     $time_man_rating = $_POST['time_man_rating'];
-    $comments = $_POST['comments'];
+    $comments = mysqli_real_escape_string($conn, $_POST['comments']);    
     $teacher_id = $_POST['teacher_id'];
     $user_id = $_SESSION['user_id'];
 
