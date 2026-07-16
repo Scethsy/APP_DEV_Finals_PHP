@@ -5,15 +5,18 @@
     session_start();
     include 'connection.php';
 
-    if(!isset($_SESSION['user'])){
+    if(!isset($_SESSION['user_id'])){
         header("location: login.php");
         exit();
     }
 
     if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
-    echo "Review deleted successfully!";
+        echo "Review deleted successfully!";
     }
 
+    if (isset($_GET['review_updated']) && $_GET['review_updated'] == 'success') {
+        echo "Review updated successfully!";
+    }
     if (isset($_GET['updated']) && $_GET['updated'] == 'success') {
         echo "Profile updated successfully!";
     }
@@ -88,7 +91,7 @@ University: <?php echo htmlspecialchars($_SESSION['uni_name']); ?><br>
             <p>Strictness: <?php echo htmlspecialchars($review['strict_level']); ?>/5</p>
             <p>Time Management: <?php echo htmlspecialchars($review['time_man_rating']); ?>/5</p>
             <p>Comments: <?php echo htmlspecialchars($review['comments']); ?></p>
-            <p> <a href="edit_review.php?review_id=<?php echo $review['review_id']; ?>"> Edit </a> </p> 
+            <p> <a href="edit_review.php?review_id=<?php echo $review['review_id']; ?>"> Edit Review </a> </p> 
             <form method="post" action="profile.php">
                 <input type="hidden" name="review_id" value="<?php echo $review['review_id']; ?>">
                 <input type="submit" name="delete_review" value="Delete">

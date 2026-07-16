@@ -12,13 +12,41 @@
     }
 
     $user_id = $_SESSION['user_id'];
+    $review_id = $_GET['review_id'];
+    
+    if (isset($_POST['update_review'])) {
+        $course_code = mysqli_real_escape_string($conn, $_POST['course_code']);
+        $approach_rating = $_POST['approach_rating'];
+        $knowledge_rating = $_POST['knowledge_rating'];
+        $strict_level = $_POST['strict_level'];
+        $time_man_rating = $_POST['time_man_rating'];
+        $comments = mysqli_real_escape_string($conn, $_POST['comments']);
 
-    $sql = "SELECT review_id, teacher_id, course_code, approach_rating, knowledge_rating, strict_level, time_man_rating, comments FROM reviews WHERE user_id = $user_id";
+        $sql = "UPDATE reviews 
+                SET course_code = '$course_code',
+                    approach_rating = '$approach_rating',
+                    knowledge_rating = '$knowledge_rating',
+                    strict_level = '$strict_level',
+                    time_man_rating = '$time_man_rating',
+                    comments = '$comments'
+                WHERE review_id = '$review_id' AND user_id = '$user_id'";
+
+        $update_result = mysqli_query($conn, $sql);
+
+        if ($update_result) {
+            header("Location: profile.php?review_updated=success");
+            exit();
+        } else {
+            echo "Error updating review: " . mysqli_error($conn);
+        }
+    }
+
+    $sql = "SELECT review_id, teacher_id, course_code, approach_rating, knowledge_rating, strict_level, time_man_rating, comments FROM reviews WHERE review_id = '$review_id' AND user_id = '$user_id'";
     $result = mysqli_query($conn, $sql);
     $reviews = mysqli_fetch_assoc($result);
 ?> 
 <!-- Review Form -->
-<form method = "post" action = "teacher.php">
+<form method = "post">
         <h5> Review Form </h5>
         <!-- Course Code -->
         Course Code:
@@ -74,34 +102,9 @@
         <br><br>
 
         <!-- Comments -->
-        Comments:<input type="text" name="comments" placeholder="Optional." <?php echo htmlspecialchars($reviews['comments']); ?>><br>
+        Comments:<input type="text" name="comments" placeholder="Optional." value="<?php echo htmlspecialchars($reviews['comments']); ?>"><br>
 
-        <input type="submit" value="Submit Review" name="update_revview">
+        <input type="hidden" name="review_id" value="<?php echo $review_id; ?>">
+
+        <input type="submit" value="Submit Review" name="update_review">
     </form>
-<?php
-if (isset($_POST['update_review'])) {
-    $course_code = $_POST['course_code'];
-    $approach_rating = $_POST['approach_rating'];
-    $knowledge_rating = $_POST['knowledge_rating'];
-    $strict_level = $_POST['strict_level'];
-    $time_man_rating = $_POST['time_man_rating'];
-    $comments = $_POST['comments'];
-
-    $sql = "UPDATE reviews 
-            SET course_code = '$course_code',
-                approach_rating = '$approach_rating',
-                knowledge_rating = '$knowledge_rating',
-                strict_level = '$strict_level',
-                time_man_rating = '$time_man_rating',
-                comments = '$comments'
-            WHERE review_id = '$review_id' AND user_id = '$user_id'";
-
-    $update_result = mysqli_query($conn, $sql);
-
-    if ($update_result) {
-        echo "Review successfully updated.";
-    } else {
-        echo "Error updating review: " . mysqli_error($conn);
-    }
-}
-?>
