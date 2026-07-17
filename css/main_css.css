@@ -1,0 +1,1375 @@
+/* CODEX CHANGE: Main stylesheet was empty in the original copy. Styles below
+   implement the Figma-inspired homepage, CSS-only modal, and no-JavaScript form. */
+:root {
+    --blue: #0866c2;
+    --blue-dark: #0757a4;
+    --purple: #6656f5;
+    --text: #1f2937;
+    --muted: #667085;
+    --line: #d9e1ec;
+    --surface: #ffffff;
+    --page: #f5f7fb;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--page);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.main-nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    min-height: 54px;
+    padding: 0 36px;
+    background: var(--surface);
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.14);
+}
+
+.nav-brand {
+    color: var(--blue);
+    font-size: 22px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.nav-link,
+.nav-school-form select {
+    color: #344054;
+    font-size: 13px;
+}
+
+.nav-link {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.nav-school-form {
+    margin: 0;
+}
+
+.nav-school-form select {
+    width: 118px;
+    border: 0;
+    background: transparent;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    outline: 0;
+}
+
+.homepage-shell {
+    display: flex;
+    justify-content: center;
+    padding: 24px 18px 96px;
+}
+
+.feed {
+    width: min(760px, 100%);
+    background: var(--surface);
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+}
+
+.empty-feed,
+.post-card {
+    position: relative;
+    padding: 22px 34px 18px;
+    border-bottom: 1px solid var(--line);
+    background: var(--surface);
+}
+
+.empty-feed h1 {
+    margin: 0 0 6px;
+    font-size: 20px;
+}
+
+.empty-feed p {
+    margin: 0;
+    color: var(--muted);
+}
+
+.post-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.avatar {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #073b74, #f8a642);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.post-author h2 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.2;
+}
+
+.post-author p {
+    margin: 2px 0 0;
+    color: #475467;
+    font-size: 15px;
+}
+
+.post-text {
+    margin: 0 0 22px;
+    color: #243044;
+    font-size: 17px;
+    line-height: 1.55;
+}
+
+.professor-card {
+    padding: 16px 20px 18px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+}
+
+.professor-heading {
+    display: grid;
+    grid-template-columns: minmax(150px, 1fr) minmax(220px, max-content);
+    align-items: start;
+    gap: 16px;
+    margin-bottom: 10px;
+}
+
+.professor-heading span,
+.professor-heading small {
+    display: block;
+    color: #475467;
+}
+
+.professor-heading strong {
+    display: block;
+    font-size: 17px;
+}
+
+.course-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-content: flex-start;
+    gap: 4px 6px;
+    width: 234px;
+    max-height: 86px;
+    overflow: hidden;
+    padding-top: 8px;
+    margin-left: auto;
+}
+
+.course-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 54px;
+    min-height: 14px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    background: var(--purple);
+    color: #fff !important;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.rating-grid,
+.modal-rating-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 70px;
+}
+
+.rating-grid span,
+.modal-rating-grid span {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 16px;
+}
+
+.stars {
+    display: flex;
+    gap: 7px;
+}
+
+.star {
+    display: inline-block;
+    color: #b9c0c9;
+    font-size: 28px;
+    line-height: 24px;
+}
+
+.stars .star.is-filled {
+    color: #f7b500;
+}
+
+.floating-review-button {
+    position: fixed;
+    right: 34px;
+    bottom: 32px;
+    z-index: 30;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border: 0;
+    border-radius: 50%;
+    background: #4f46e5;
+    color: #fff;
+    box-shadow: 0 14px 30px rgba(79, 70, 229, 0.34);
+    font-size: 28px;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.floating-review-button:hover {
+    background: #4338ca;
+}
+
+.review-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: none;
+    align-items: start;
+    justify-items: center;
+    padding: 106px 20px 46px;
+    background: rgba(0, 0, 0, 0.42);
+    overflow-y: auto;
+}
+
+.review-overlay:target {
+    display: grid;
+}
+
+.review-overlay-close {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+}
+
+.review-modal {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 34px;
+    align-content: start;
+    width: min(1120px, calc(100vw - 84px));
+    min-height: 540px;
+    padding: 44px 46px 34px;
+    background: var(--surface);
+    box-shadow: none;
+}
+
+.review-modal h1 {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+
+.modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    color: #667085;
+    font-size: 28px;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.modal-close:hover {
+    background: #eef2f7;
+    color: #1f2937;
+}
+
+.review-form {
+    display: grid;
+    gap: 0;
+}
+
+.review-filter-form {
+    display: contents;
+}
+
+.review-submit-form {
+    display: contents;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 34px;
+}
+
+.top-fields {
+    grid-column: 1 / span 2;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.new-teacher-fields {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 34px;
+    gap: 18px;
+}
+
+.review-form label span {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.review-form input,
+.review-form select,
+.review-form textarea {
+    width: 100%;
+    border: 1px solid #aeb8c5;
+    border-radius: 5px;
+    background: #fff;
+    color: #1f2937;
+    outline: none;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+}
+
+.review-form input,
+.review-form select {
+    min-height: 52px;
+    padding: 0 14px;
+}
+
+.review-form textarea {
+    min-height: 130px;
+    resize: vertical;
+    padding: 14px;
+}
+
+.review-form input:focus,
+.review-form select:focus,
+.review-form textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(8, 102, 194, 0.12);
+}
+
+.modal-rating-grid {
+    grid-column: 1 / -1;
+    width: min(760px, 100%);
+    margin: 34px auto 0;
+    gap: 34px 190px;
+}
+
+.course-field {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.comment-field {
+    grid-column: 1 / -1;
+    margin-top: 18px;
+}
+
+.rating-choice {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
+.rating-choice input {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    opacity: 0;
+}
+
+.rating-choice label {
+    width: auto;
+    color: #b9c0c9;
+    font-size: 27px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.rating-choice input:checked + label,
+.rating-choice input:checked + label ~ label,
+.rating-choice label:hover,
+.rating-choice label:hover ~ label {
+    color: #f7b500;
+}
+
+.post-review-button {
+    grid-column: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 128px;
+    min-height: 52px;
+    margin-top: 34px;
+    border: 0;
+    border-radius: 5px;
+    background: var(--blue);
+    color: #fff;
+    font-weight: 800;
+}
+
+.post-review-button:hover {
+    background: var(--blue-dark);
+}
+
+.post-review-button:disabled,
+.review-form input:disabled,
+.review-form select:disabled,
+.review-form textarea:disabled {
+    cursor: not-allowed;
+    opacity: 0.62;
+}
+
+.post-review-button span {
+    font-size: 24px;
+    line-height: 0;
+}
+
+/* CODEX CHANGE: Account page design added for signup.php, login.php, and logout.php
+   based on the provided Figma screenshots. No JavaScript is used. */
+.account-page {
+    min-height: 100vh;
+    background: #fff;
+    color: #121827;
+}
+
+.account-canvas {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    background: #fff;
+}
+
+.account-canvas-login {
+    padding-top: 108px;
+}
+
+.account-canvas-register {
+    padding-top: 54px;
+}
+
+.account-logo {
+    margin: 0;
+    color: #0866c2;
+    font-size: 108px;
+    font-weight: 800;
+    line-height: 1;
+    text-align: center;
+    letter-spacing: 0;
+}
+
+.account-card {
+    width: 470px;
+    margin: 52px auto 0;
+    border-radius: 0 0 14px 14px;
+    background: #fff;
+    box-shadow: 0 32px 68px rgba(15, 23, 42, 0.12);
+}
+
+.login-card {
+    width: 460px;
+    padding: 34px 58px 36px;
+}
+
+.register-card {
+    width: 500px;
+    margin-top: 44px;
+    padding: 34px 48px 22px;
+}
+
+.account-card h2 {
+    margin: 0 0 24px;
+    font-size: 21px;
+    line-height: 1.2;
+}
+
+.account-card h3 {
+    margin: 22px 0 14px;
+    font-size: 22px;
+    line-height: 1.2;
+}
+
+.account-form {
+    display: grid;
+    gap: 14px;
+}
+
+.account-form label span {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+}
+
+.account-form input,
+.account-form select {
+    width: 100%;
+    height: 38px;
+    border: 1px solid #b7d9f7;
+    border-radius: 6px;
+    background: #fff;
+    color: #121827;
+    padding: 0 13px;
+    outline: 0;
+}
+
+.account-form input::placeholder {
+    color: #aeb7c5;
+}
+
+.account-form input:focus,
+.account-form select:focus {
+    border-color: #1e88e5;
+    box-shadow: 0 0 0 2px rgba(8, 102, 194, 0.12);
+}
+
+.account-form input:disabled {
+    background: #f8fafc;
+    color: #aeb7c5;
+}
+
+.account-grid {
+    display: grid;
+    gap: 18px;
+}
+
+.account-grid-three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.account-grid-name {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.account-grid-two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.account-submit {
+    width: 100%;
+    height: 38px;
+    margin-top: 48px;
+    border: 0;
+    border-radius: 5px;
+    background: #1f73ec;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.login-card .account-submit {
+    height: 44px;
+    margin-top: 16px;
+    font-size: 13px;
+}
+
+.account-submit:hover,
+.logout-login-button:hover {
+    background: #0866c2;
+}
+
+.account-switch {
+    margin: 14px 0 0;
+    color: #9aa4b2;
+    font-size: 12px;
+    text-align: center;
+}
+
+.account-switch a {
+    color: #0866c2;
+    font-weight: 700;
+}
+
+.account-message {
+    margin: 0 0 14px;
+    border-radius: 5px;
+    padding: 10px 12px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.account-message.success {
+    background: #eaf8ef;
+    color: #176b3a;
+}
+
+.account-message.error {
+    background: #fdecec;
+    color: #b42318;
+}
+
+.logout-canvas {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+}
+
+.logout-content {
+    transform: translateY(-20px);
+    text-align: center;
+}
+
+.logout-content .account-logo {
+    font-size: 100px;
+}
+
+.logout-content p {
+    margin: 18px 0 28px;
+    color: #000;
+    font-size: 45px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.logout-login-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 205px;
+    min-height: 66px;
+    border-radius: 6px;
+    background: #1f73ec;
+    color: #fff;
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.account-deleted-canvas {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+}
+
+.account-deleted-content {
+    transform: translateY(-40px);
+    text-align: center;
+}
+
+.account-deleted-content .account-logo {
+    font-size: 70px;
+}
+
+.account-deleted-content p {
+    margin: 12px 0 18px;
+    color: #000;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.account-deleted-login-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 118px;
+    min-height: 48px;
+    border-radius: 4px;
+    background: #1f73ec;
+    color: #fff;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.account-deleted-login-button:hover {
+    background: #0866c2;
+}
+
+/* CODEX CHANGE: Profile, edit profile, and profile review edit styles added
+   from the provided Figma screenshots. */
+.profile-shell {
+    display: grid;
+    grid-template-columns: minmax(260px, 430px) minmax(420px, 760px);
+    gap: 42px;
+    width: min(1320px, calc(100vw - 72px));
+    margin: 32px auto 0;
+    background: #fff;
+}
+
+.profile-sidebar {
+    min-height: 720px;
+    padding: 44px 28px;
+    text-align: center;
+}
+
+.profile-logout,
+.profile-edit-button,
+.save-profile-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 132px;
+    min-height: 42px;
+    border: 0;
+    border-radius: 5px;
+    background: #1f73ec;
+    color: #fff;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.profile-logout {
+    margin: 0 auto 58px 0;
+}
+
+.profile-avatar {
+    display: grid;
+    place-items: center;
+    width: 172px;
+    height: 172px;
+    margin: 0 auto 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #073b74, #f8a642);
+    color: #fff;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.profile-sidebar h1 {
+    margin: 0 0 16px;
+    color: #1d2939;
+    font-size: 30px;
+}
+
+.profile-sidebar p {
+    margin: 0 0 28px;
+    color: #475467;
+    font-size: 28px;
+}
+
+.profile-message {
+    margin: 20px auto 0;
+    color: #176b3a;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.profile-error {
+    color: #b42318;
+}
+
+.profile-feed {
+    min-height: 720px;
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    background: #fff;
+}
+
+.profile-post-card {
+    padding: 22px 22px 28px;
+}
+
+.profile-post-card .post-author h2 {
+    font-size: 14px;
+}
+
+.profile-post-card .post-author p {
+    font-size: 13px;
+}
+
+.profile-post-card .post-text {
+    font-size: 13px;
+}
+
+.profile-post-menu-trigger {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    color: #b8c1cc;
+    font-size: 24px;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.profile-post-menu {
+    position: absolute;
+    top: 34px;
+    right: 20px;
+    z-index: 5;
+    display: none;
+    min-width: 120px;
+    background: #fff;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.18);
+}
+
+.profile-post-menu:target {
+    display: block;
+}
+
+.profile-post-menu a,
+.profile-post-menu button {
+    display: block;
+    width: 100%;
+    border: 0;
+    background: #fff;
+    color: #344054;
+    padding: 10px 16px;
+    font-size: 12px;
+    text-align: left;
+    text-decoration: none;
+}
+
+.profile-post-menu a:hover,
+.profile-post-menu button:hover {
+    background: #f2f4f7;
+}
+
+.profile-post-menu form {
+    margin: 0;
+}
+
+.edit-profile-shell {
+    width: min(1320px, calc(100vw - 72px));
+    min-height: 720px;
+    margin: 0 auto;
+    padding: 70px 70px 70px;
+    background: #fff;
+}
+
+.edit-profile-hero {
+    display: grid;
+    grid-template-columns: 240px 1fr auto;
+    align-items: center;
+    gap: 28px;
+    margin-bottom: 46px;
+}
+
+.edit-profile-avatar {
+    width: 220px;
+    height: 220px;
+    margin: 0;
+    font-size: 38px;
+}
+
+.edit-profile-hero h1 {
+    margin: 0 0 16px;
+    font-size: 28px;
+}
+
+.edit-profile-hero p {
+    margin: 0;
+    color: #475467;
+    font-size: 28px;
+}
+
+.delete-account-button {
+    width: 170px;
+    height: 42px;
+    border: 0;
+    border-radius: 5px;
+    background: #ef2323;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.delete-account-form {
+    margin: 0;
+}
+
+.edit-profile-form {
+    display: grid;
+    gap: 22px;
+    width: min(650px, 100%);
+    margin-left: 84px;
+}
+
+.edit-profile-form label {
+    display: grid;
+    grid-template-columns: 112px 280px;
+    align-items: center;
+    gap: 18px;
+}
+
+.edit-profile-form label span {
+    color: #344054;
+    font-size: 12px;
+    text-align: right;
+}
+
+.edit-profile-form input,
+.edit-profile-form select {
+    min-height: 30px;
+    border: 1px solid #b7d9f7;
+    border-radius: 5px;
+    padding: 0 12px;
+    color: #667085;
+}
+
+.edit-profile-passwords {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-left: 130px;
+}
+
+.edit-profile-passwords label {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+.edit-profile-passwords label span {
+    text-align: left;
+}
+
+.save-profile-button {
+    margin-left: 130px;
+}
+
+.edit-review-page {
+    min-height: calc(100vh - 54px);
+    padding: 58px 20px;
+    background: rgba(0, 0, 0, 0.42);
+}
+
+.edit-review-panel {
+    width: min(1100px, calc(100vw - 120px));
+    margin: 0 auto;
+    padding: 42px 44px 34px;
+    background: #fff;
+}
+
+.edit-review-form {
+    display: grid;
+    gap: 20px;
+}
+
+.edit-review-top-fields {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 38px;
+}
+
+.edit-review-comment textarea {
+    min-height: 140px;
+}
+
+.edit-review-rating-grid {
+    margin-top: 34px;
+}
+
+.edit-review-submit {
+    margin-top: 26px;
+}
+
+/* CODEX CHANGE: University teacher list and teacher profile styles added. */
+.university-page {
+    width: min(1500px, calc(100vw - 72px));
+    min-height: 820px;
+    margin: 0 auto;
+    background: #fff;
+}
+
+.university-hero {
+    display: grid;
+    place-items: center;
+    min-height: 174px;
+    background: #0f70ba;
+}
+
+.university-hero h1 {
+    margin: 0;
+    color: #fff;
+    font-size: 60px;
+    line-height: 1.1;
+}
+
+.teacher-list-panel {
+    width: min(760px, 100%);
+    min-height: 600px;
+    margin: 0 auto;
+    border-left: 1px solid #aeb8c5;
+    border-right: 1px solid #aeb8c5;
+    padding: 16px 34px;
+}
+
+.teacher-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max-content;
+    align-items: center;
+    gap: 24px;
+    min-height: 92px;
+    border-bottom: 1px solid #b9c0c9;
+    color: #333;
+    font-size: 28px;
+    text-decoration: none;
+}
+
+.teacher-row:hover {
+    background: #f8fbff;
+}
+
+.empty-teacher-row {
+    color: #667085;
+    font-size: 18px;
+}
+
+.teacher-average-stars {
+    display: flex;
+    gap: 12px;
+}
+
+.avg-star {
+    position: relative;
+    display: inline-block;
+    color: #b9c0c9;
+    font-size: 30px;
+    line-height: 1;
+}
+
+.avg-star.is-filled {
+    color: #f7b500;
+}
+
+.avg-star.is-half {
+    color: #b9c0c9;
+}
+
+.avg-star.is-half::before {
+    content: "\2605";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 50%;
+    overflow: hidden;
+    color: #f7b500;
+}
+
+.teacher-profile-shell {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(260px, 430px) minmax(420px, 760px);
+    gap: 42px;
+    width: min(1220px, calc(100vw - 72px));
+    margin: 24px auto 0;
+    background: #fff;
+}
+
+.teacher-back-button {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 132px;
+    min-height: 42px;
+    border-radius: 5px;
+    background: #1f73ec;
+    color: #fff;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.teacher-back-button:hover {
+    background: #0866c2;
+}
+
+.teacher-profile-sidebar {
+    min-height: 720px;
+    padding: 82px 28px;
+    text-align: center;
+}
+
+.teacher-profile-avatar {
+    margin-bottom: 42px;
+}
+
+.teacher-profile-sidebar h1 {
+    margin: 0 0 18px;
+    color: #1d2939;
+    font-size: 28px;
+}
+
+.teacher-profile-sidebar p {
+    margin: 0;
+    color: #475467;
+    font-size: 26px;
+}
+
+/* CODEX CHANGE: Teacher profile rating summary added under the teacher information. */
+.teacher-rating-summary {
+    width: min(310px, 100%);
+    margin: 34px auto 0;
+    padding: 16px 0;
+    text-align: left;
+}
+
+.teacher-rating-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 18px;
+    padding: 12px 0;
+    border-bottom: 1px solid #d9e2ef;
+    color: #1d2939;
+    font-size: 17px;
+}
+
+.teacher-rating-row:last-child {
+    border-bottom: 0;
+}
+
+.teacher-rating-row strong {
+    color: #0b1220;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.teacher-review-feed {
+    min-height: 720px;
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    background: #fff;
+}
+
+.teacher-review-card {
+    padding: 22px 22px 28px;
+}
+
+.teacher-review-card .post-author h2 {
+    font-size: 14px;
+}
+
+.teacher-review-card .post-author p,
+.teacher-review-card .post-text {
+    font-size: 13px;
+}
+
+@media (max-width: 760px) {
+    .main-nav {
+        gap: 14px;
+        padding: 0 16px;
+    }
+
+    .nav-brand {
+        font-size: 19px;
+    }
+
+    .empty-feed,
+    .post-card {
+        padding: 20px 18px;
+    }
+
+    .rating-grid,
+    .modal-rating-grid,
+    .form-grid,
+    .new-teacher-fields {
+        grid-template-columns: 1fr;
+    }
+
+    .professor-heading {
+        grid-template-columns: minmax(130px, 1fr) minmax(190px, max-content);
+        gap: 12px;
+    }
+
+    .course-pills {
+        width: 220px;
+        justify-content: flex-end;
+        padding-top: 0;
+    }
+
+    .review-overlay {
+        padding: 72px 12px 28px;
+    }
+
+    .review-modal {
+        grid-template-columns: 1fr;
+        padding: 24px 18px 28px;
+    }
+
+    .top-fields,
+    .course-field,
+    .comment-field,
+    .new-teacher-fields,
+    .modal-rating-grid,
+    .post-review-button {
+        grid-column: 1;
+    }
+
+    .account-canvas {
+        width: 100%;
+        min-height: 100vh;
+        margin: 0;
+        padding: 44px 16px;
+    }
+
+    .account-canvas-login,
+    .account-canvas-register {
+        padding-top: 44px;
+    }
+
+    .account-logo,
+    .logout-content .account-logo {
+        font-size: 58px;
+    }
+
+    .account-card,
+    .login-card,
+    .register-card {
+        width: 100%;
+        margin-top: 34px;
+        padding: 28px 20px;
+    }
+
+    .account-grid-three,
+    .account-grid-name,
+    .account-grid-two {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .account-submit {
+        margin-top: 24px;
+    }
+
+    .logout-content p {
+        font-size: 30px;
+    }
+
+    .logout-login-button {
+        min-width: 150px;
+        min-height: 54px;
+        font-size: 31px;
+    }
+
+    .profile-shell {
+        grid-template-columns: 1fr;
+        width: 100%;
+        gap: 0;
+    }
+
+    .profile-sidebar {
+        min-height: auto;
+        padding: 28px 18px;
+    }
+
+    .profile-feed {
+        border-left: 0;
+        border-right: 0;
+    }
+
+    .edit-profile-shell {
+        width: 100%;
+        padding: 32px 18px;
+    }
+
+    .edit-profile-hero,
+    .edit-profile-form label,
+    .edit-profile-passwords {
+        grid-template-columns: 1fr;
+        margin-left: 0;
+    }
+
+    .edit-profile-form {
+        margin-left: 0;
+    }
+
+    .edit-profile-form label span {
+        text-align: left;
+    }
+
+    .save-profile-button {
+        margin-left: 0;
+    }
+
+    .edit-review-panel {
+        width: 100%;
+        padding: 24px 18px;
+    }
+
+    .edit-review-top-fields {
+        grid-template-columns: 1fr;
+    }
+
+    .university-page {
+        width: 100%;
+    }
+
+    .university-hero h1 {
+        font-size: 34px;
+        text-align: center;
+    }
+
+    .teacher-list-panel {
+        border-left: 0;
+        border-right: 0;
+        padding: 10px 18px;
+    }
+
+    .teacher-row {
+        font-size: 20px;
+    }
+
+    .teacher-profile-shell {
+        grid-template-columns: 1fr;
+        width: 100%;
+        gap: 0;
+    }
+
+    .teacher-profile-sidebar {
+        min-height: auto;
+        padding: 36px 18px;
+    }
+
+    .teacher-review-feed {
+        border-left: 0;
+        border-right: 0;
+    }
+}
+
+@media (max-width: 460px) {
+    .professor-heading {
+        grid-template-columns: 1fr;
+    }
+
+    .course-pills {
+        justify-content: flex-start;
+        margin-left: 0;
+    }
+}
