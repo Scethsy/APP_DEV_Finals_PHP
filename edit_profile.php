@@ -17,11 +17,6 @@ $edit_error = "";
 /* CODEX CHANGE: Delete-account handler added. It removes reviews owned by the
    current user before deleting the user account, then clears the session. */
 if (isset($_POST['delete_account'])) {
-    $delete_reviews_sql = "DELETE FROM reviews WHERE user_id = ?";
-    $delete_reviews_stmt = mysqli_prepare($conn, $delete_reviews_sql);
-    mysqli_stmt_bind_param($delete_reviews_stmt, "i", $user_id);
-    mysqli_stmt_execute($delete_reviews_stmt);
-
     $delete_user_sql = "DELETE FROM users WHERE user_id = ?";
     $delete_user_stmt = mysqli_prepare($conn, $delete_user_sql);
     mysqli_stmt_bind_param($delete_user_stmt, "i", $user_id);

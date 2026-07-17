@@ -92,7 +92,7 @@ if ($selected_uni_id > 0) {
 $popup_review = null;
 if ($selected_uni_id > 0 && ctype_digit((string) $selected_teacher_id)) {
     $popup_teacher_id = (int) $selected_teacher_id;
-    $popup_review_sql = "SELECT review_id, course_code, approach_rating, knowledge_rating, strict_level, time_man_rating, comments
+    $popup_review_sql = "SELECT review_id, course_code, approach_rating, knowledge_rating, lenient_level, time_man_rating, comments
                          FROM reviews
                          WHERE user_id = ? AND teacher_id = ?
                          LIMIT 1";
@@ -111,7 +111,7 @@ $reviews_sql = "
         reviews.course_code,
         reviews.approach_rating,
         reviews.knowledge_rating,
-        reviews.strict_level,
+        reviews.lenient_level,
         reviews.time_man_rating,
         reviews.comments,
         users.fname,
@@ -190,8 +190,8 @@ if (!$reviews) {
                             <?php render_stars($review['approach_rating']); ?>
                         </div>
                         <div>
-                            <span>Strictness</span>
-                            <?php render_stars($review['strict_level']); ?>
+                            <span>Leniency</span>
+                            <?php render_stars($review['lenient_level']); ?>
                         </div>
                         <div>
                             <span>Knowledge</span>
@@ -296,8 +296,8 @@ if (!$reviews) {
                 </label>
 
                 <label>
-                    <span>Strictness</span>
-                    <?php render_rating_input('strict_level', $popup_review['strict_level'] ?? 0); ?>
+                    <span>Leniency</span>
+                    <?php render_rating_input('lenient_level', $popup_review['lenient_level'] ?? 0); ?>
                 </label>
 
                 <label>

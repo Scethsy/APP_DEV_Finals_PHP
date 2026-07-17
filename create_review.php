@@ -24,7 +24,7 @@ $course_code = strtoupper(trim($_POST['course_code'] ?? ''));
 $comments = trim($_POST['comments'] ?? '');
 $approach_rating = max(0, min(5, (int) ($_POST['approach_rating'] ?? 0)));
 $knowledge_rating = max(0, min(5, (int) ($_POST['knowledge_rating'] ?? 0)));
-$strict_level = max(0, min(5, (int) ($_POST['strict_level'] ?? 0)));
+$lenient_level = max(0, min(5, (int) ($_POST['lenient_level'] ?? 0)));
 $time_man_rating = max(0, min(5, (int) ($_POST['time_man_rating'] ?? 0)));
 
 if ($uni_id <= 0 || $course_code === '' || $comments === '') {
@@ -75,10 +75,10 @@ if ($teacher_id_raw === 'add') {
    owned row from the popup instead of sending the user to another page. */
 if ($review_id > 0) {
     $update_sql = "UPDATE reviews
-                   SET teacher_id = ?, course_code = ?, approach_rating = ?, knowledge_rating = ?, strict_level = ?, time_man_rating = ?, comments = ?
+                   SET teacher_id = ?, course_code = ?, approach_rating = ?, knowledge_rating = ?, lenient_level = ?, time_man_rating = ?, comments = ?
                    WHERE review_id = ? AND user_id = ?";
     $update_stmt = mysqli_prepare($conn, $update_sql);
-    mysqli_stmt_bind_param($update_stmt, "isiiiisii", $teacher_id, $course_code, $approach_rating, $knowledge_rating, $strict_level, $time_man_rating, $comments, $review_id, $user_id);
+    mysqli_stmt_bind_param($update_stmt, "isiiiisii", $teacher_id, $course_code, $approach_rating, $knowledge_rating, $lenient_level, $time_man_rating, $comments, $review_id, $user_id);
 
     if (!mysqli_stmt_execute($update_stmt)) {
         die("Error updating review: " . mysqli_error($conn));
@@ -104,7 +104,7 @@ if ($existing_review) {
 }
 
 $review_sql = "INSERT INTO reviews
-    (user_id, teacher_id, course_code, approach_rating, knowledge_rating, strict_level, time_man_rating, comments)
+    (user_id, teacher_id, course_code, approach_rating, knowledge_rating, lenient_level, time_man_rating, comments)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 $review_stmt = mysqli_prepare($conn, $review_sql);
@@ -116,7 +116,7 @@ mysqli_stmt_bind_param(
     $course_code,
     $approach_rating,
     $knowledge_rating,
-    $strict_level,
+    $lenient_level,
     $time_man_rating,
     $comments
 );

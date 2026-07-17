@@ -83,7 +83,7 @@
             reviews.course_code,
             reviews.approach_rating,
             reviews.knowledge_rating,
-            reviews.strict_level,
+            reviews.lenient_level,
             reviews.time_man_rating,
             reviews.comments,
             teachers.teacher_fname,
@@ -171,8 +171,8 @@
                             <?php profile_stars($review['approach_rating']); ?>
                         </div>
                         <div>
-                            <span>Strictness</span>
-                            <?php profile_stars($review['strict_level']); ?>
+                            <span>Leniency</span>
+                            <?php profile_stars($review['lenient_level']); ?>
                         </div>
                         <div>
                             <span>Knowledge</span>

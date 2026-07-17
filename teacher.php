@@ -85,7 +85,7 @@ $rating_summary_sql = "
     SELECT
         AVG(approach_rating) AS approach_avg,
         AVG(knowledge_rating) AS knowledge_avg,
-        AVG(strict_level) AS strict_avg,
+        AVG(lenient_level) AS strict_avg,
         AVG(time_man_rating) AS time_avg
     FROM reviews
     WHERE teacher_id = ?
@@ -104,7 +104,7 @@ $reviews_sql = "
         reviews.course_code,
         reviews.approach_rating,
         reviews.knowledge_rating,
-        reviews.strict_level,
+        reviews.lenient_level,
         reviews.time_man_rating,
         reviews.comments,
         users.fname,
@@ -151,7 +151,7 @@ $reviews = mysqli_stmt_get_result($reviews_stmt);
                 <strong><?php echo e(teacher_average_number($rating_summary['knowledge_avg'] ?? null)); ?></strong>
             </div>
             <div class="teacher-rating-row">
-                <span>Strictness</span>
+                <span>Leniency</span>
                 <strong><?php echo e(teacher_average_number($rating_summary['strict_avg'] ?? null)); ?></strong>
             </div>
             <div class="teacher-rating-row">
@@ -201,8 +201,8 @@ $reviews = mysqli_stmt_get_result($reviews_stmt);
                             <?php teacher_page_stars($review['approach_rating']); ?>
                         </div>
                         <div>
-                            <span>Strictness</span>
-                            <?php teacher_page_stars($review['strict_level']); ?>
+                            <span>Leniency</span>
+                            <?php teacher_page_stars($review['lenient_level']); ?>
                         </div>
                         <div>
                             <span>Knowledge</span>

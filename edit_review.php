@@ -43,14 +43,14 @@ if (isset($_POST['update_review'])) {
     $comments = trim($_POST['comments']);
     $approach_rating = max(0, min(5, (int) ($_POST['approach_rating'] ?? 0)));
     $knowledge_rating = max(0, min(5, (int) ($_POST['knowledge_rating'] ?? 0)));
-    $strict_level = max(0, min(5, (int) ($_POST['strict_level'] ?? 0)));
+    $lenient_level = max(0, min(5, (int) ($_POST['lenient_level'] ?? 0)));
     $time_man_rating = max(0, min(5, (int) ($_POST['time_man_rating'] ?? 0)));
 
     $update_sql = "UPDATE reviews
-                   SET teacher_id = ?, course_code = ?, approach_rating = ?, knowledge_rating = ?, strict_level = ?, time_man_rating = ?, comments = ?
+                   SET teacher_id = ?, course_code = ?, approach_rating = ?, knowledge_rating = ?, lenient_level = ?, time_man_rating = ?, comments = ?
                    WHERE review_id = ? AND user_id = ?";
     $update_stmt = mysqli_prepare($conn, $update_sql);
-    mysqli_stmt_bind_param($update_stmt, "isiiiisii", $teacher_id, $course_code, $approach_rating, $knowledge_rating, $strict_level, $time_man_rating, $comments, $review_id, $user_id);
+    mysqli_stmt_bind_param($update_stmt, "isiiiisii", $teacher_id, $course_code, $approach_rating, $knowledge_rating, $lenient_level, $time_man_rating, $comments, $review_id, $user_id);
     mysqli_stmt_execute($update_stmt);
 
     header("Location: profile.php?updated=success");
@@ -140,8 +140,8 @@ $teachers = mysqli_query($conn, "SELECT teacher_id, teacher_fname, teacher_lname
                 </label>
 
                 <label>
-                    <span>Strictness</span>
-                    <?php render_edit_rating_input('strict_level', $review['strict_level']); ?>
+                    <span>Leniency</span>
+                    <?php render_edit_rating_input('lenient_level', $review['lenient_level']); ?>
                 </label>
 
                 <label>

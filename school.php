@@ -54,7 +54,7 @@ $teachers_sql = "
         teachers.teacher_id,
         teachers.teacher_fname,
         teachers.teacher_lname,
-        AVG((reviews.approach_rating + reviews.knowledge_rating + reviews.strict_level + reviews.time_man_rating) / 4) AS average_rating
+        AVG((reviews.approach_rating + reviews.knowledge_rating + reviews.lenient_level + reviews.time_man_rating) / 4) AS average_rating
     FROM teachers
     LEFT JOIN reviews ON teachers.teacher_id = reviews.teacher_id
     WHERE teachers.uni_id = ?
