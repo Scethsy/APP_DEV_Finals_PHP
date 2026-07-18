@@ -3,8 +3,6 @@ include 'connection.php';
 $universities = mysqli_query($conn, "SELECT uni_id, uni_name FROM universities");
 ?>
 
-<!-- CODEX CHANGE: Navbar styling/classes were added and the old plus link to review.php
-     was removed because homepage.php now has the fixed CSS-only popup button. -->
 <nav class="main-nav">
     <a class="nav-brand" href="homepage.php">LectSure</a>
     <a class="nav-link" href="homepage.php">Home</a>

@@ -1,5 +1,4 @@
-<!-- Page where users may edit their previous reviews -->
-<!-- Accessed through profile.php -->
+// Page where users may edit their previous reviews
 
 <?php
 session_start();
@@ -57,7 +56,7 @@ if (isset($_POST['update_review'])) {
     exit();
 }
 
-/* CODEX CHANGE: Review edit lookup added. It only allows editing reviews owned
+/* Review edit lookup. It only allows editing reviews owned
    by the logged-in user. */
 $review_sql = "SELECT reviews.*, teachers.uni_id, teachers.teacher_fname, teachers.teacher_lname
                FROM reviews
@@ -85,7 +84,6 @@ $teachers = mysqli_query($conn, "SELECT teacher_id, teacher_fname, teacher_lname
 <body>
 <?php include 'navbar.php'; ?>
 
-<!-- CODEX CHANGE: Figma-inspired post edit page added. -->
 <main class="edit-review-page">
     <section class="edit-review-panel">
         <form action="edit_review.php" method="post" class="review-form edit-review-form">

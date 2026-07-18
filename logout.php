@@ -7,8 +7,6 @@
     session_destroy();
 
 ?>
-<!-- CODEX CHANGE: Designed page wrapper added to match the Figma /logout screen.
-     Original session_start() and session_destroy() behavior above is preserved. -->
 <!doctype html>
 <html lang="en">
 <head>

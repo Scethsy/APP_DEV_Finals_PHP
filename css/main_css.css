@@ -1,5 +1,3 @@
-/* CODEX CHANGE: Main stylesheet was empty in the original copy. Styles below
-   implement the Figma-inspired homepage, CSS-only modal, and no-JavaScript form. */
 :root {
     --blue: #0866c2;
     --blue-dark: #0757a4;
@@ -469,8 +467,7 @@ button {
     line-height: 0;
 }
 
-/* CODEX CHANGE: Account page design added for signup.php, login.php, and logout.php
-   based on the provided Figma screenshots. No JavaScript is used. */
+
 .account-page {
     min-height: 100vh;
     background: #fff;
@@ -721,8 +718,7 @@ button {
     background: #0866c2;
 }
 
-/* CODEX CHANGE: Profile, edit profile, and profile review edit styles added
-   from the provided Figma screenshots. */
+
 .profile-shell {
     display: grid;
     grid-template-columns: minmax(260px, 430px) minmax(420px, 760px);
@@ -998,7 +994,6 @@ button {
     margin-top: 26px;
 }
 
-/* CODEX CHANGE: University teacher list and teacher profile styles added. */
 .university-page {
     width: min(1500px, calc(100vw - 72px));
     min-height: 820px;
@@ -1132,7 +1127,6 @@ button {
     font-size: 26px;
 }
 
-/* CODEX CHANGE: Teacher profile rating summary added under the teacher information. */
 .teacher-rating-summary {
     width: min(310px, 100%);
     margin: 34px auto 0;

@@ -16,8 +16,7 @@ function e($value) {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 
-/* CODEX CHANGE: Helper added to display average teacher ratings rounded to the
-   nearest half star. */
+/* To display average teacher ratings rounded to the nearest half star. */
 function render_average_stars($rating) {
     $rating = round(((float) $rating) * 2) / 2;
     echo '<div class="teacher-average-stars" aria-label="' . e($rating) . ' out of 5 stars">';
@@ -47,8 +46,7 @@ if (!$university) {
     exit();
 }
 
-/* CODEX CHANGE: Teacher list query now includes the average of all review rating
-   columns for that teacher. */
+/* The average of all review rating columns for that teacher. */
 $teachers_sql = "
     SELECT
         teachers.teacher_id,
@@ -77,7 +75,6 @@ $teachers = mysqli_stmt_get_result($teachers_stmt);
 <body>
 <?php include 'navbar.php'; ?>
 
-<!-- CODEX CHANGE: Figma-inspired university page design added. -->
 <main class="university-page">
     <section class="university-hero">
         <h1><?php echo e($university['uni_name']); ?></h1>

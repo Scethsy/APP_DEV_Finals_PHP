@@ -208,12 +208,9 @@ if (!$reviews) {
     </section>
 </main>
 
-<!-- CODEX CHANGE: CSS-only popup trigger. No JavaScript is used. -->
+<!-- Popup trigger -->
 <a class="floating-review-button" href="#review-modal" aria-label="Create review">+</a>
 
-<!-- CODEX CHANGE: Review popup changed to CSS :target and PHP form reloads.
-     The onchange attributes use the same style already present in the original
-     navbar.php, which the project allows. -->
 <div class="review-overlay" id="review-modal">
     <a class="review-overlay-close" href="#" aria-label="Close review form"></a>
     <section class="review-modal" role="dialog" aria-modal="true" aria-labelledby="reviewModalTitle">

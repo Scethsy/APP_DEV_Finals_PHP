@@ -1,8 +1,5 @@
 <?php
-/* CODEX CHANGE: New handler added in the copied project for the homepage
-   popup form. It saves reviews without JavaScript and creates a teacher first
-   when the user chose "+ Add New". Original project had early review logic in
-   review.php, but no homepage popup handler. */
+/* It saves reviews and creates a teacher first when the user chose "+ Add New". */
 session_start();
 include 'connection.php';
 
@@ -71,7 +68,7 @@ if ($teacher_id_raw === 'add') {
     }
 }
 
-/* CODEX CHANGE: When the homepage popup loaded an existing review, update that
+/* When the homepage popup loaded an existing review, update that
    owned row from the popup instead of sending the user to another page. */
 if ($review_id > 0) {
     $update_sql = "UPDATE reviews
@@ -88,7 +85,7 @@ if ($review_id > 0) {
     exit();
 }
 
-/* CODEX CHANGE: Prevent duplicate reviews for the same user and teacher.
+/* Prevent duplicate reviews for the same user and teacher.
    This fallback protects the UNIQUE(user_id, teacher_id) index if a request
    reaches this handler without the existing review_id from the popup. */
 $existing_review_sql = "SELECT review_id FROM reviews WHERE user_id = ? AND teacher_id = ? LIMIT 1";

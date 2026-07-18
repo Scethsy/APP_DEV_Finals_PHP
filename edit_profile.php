@@ -1,5 +1,6 @@
-<!-- Page where users may edit their profiles -->
-<!-- Accessed through profile.php -->
+/* Page where users may edit their profiles. 
+It also includes a delete-account handler that removes the user's reviews and account.
+Accessed through profile.php */
 
 <?php
 //To remember the User_ID Through Session
@@ -14,7 +15,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = (int) $_SESSION['user_id'];
 $edit_error = "";
 
-/* CODEX CHANGE: Delete-account handler added. It removes reviews owned by the
+/* Delete-account handler. It removes reviews owned by the
    current user before deleting the user account, then clears the session. */
 if (isset($_POST['delete_account'])) {
     $delete_user_sql = "DELETE FROM users WHERE user_id = ?";
@@ -91,7 +92,7 @@ function edit_profile_initials($name) {
     return $initials ?: 'LS';
 }
 
-/* CODEX CHANGE: User query expanded to include university name for the profile-edit
+/* User query includes university name for the profile-edit
    header while preserving the existing editable fields. */
 $sql = "SELECT users.fname, users.lname, users.email, users.uni_id, users.bday, universities.uni_name
         FROM users
@@ -113,7 +114,6 @@ $profile_universities = mysqli_query($conn, "SELECT uni_id, uni_name FROM univer
 <body>
 <?php include 'navbar.php'; ?>
 
-<!-- CODEX CHANGE: Figma-inspired edit profile layout added. -->
 <main class="edit-profile-shell">
     <section class="edit-profile-hero">
         <div class="profile-avatar edit-profile-avatar"><?php echo e(edit_profile_initials($full_name)); ?></div>

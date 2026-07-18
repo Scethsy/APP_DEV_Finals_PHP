@@ -3,8 +3,7 @@
 <?php 
     session_start();
 
-    /* CODEX CHANGE: Store status text in variables so messages appear inside
-       the designed login card instead of printing as plain text above it. */
+    /* Store status text in variables so messages appear inside the card */
     $success_message = "";
     $error_message = "";
 
@@ -46,8 +45,6 @@
         }
     }
 ?>
-<!-- CODEX CHANGE: Designed page wrapper added to match the Figma /login screen.
-     No JavaScript is used; original login PHP logic above is preserved. -->
 <!doctype html>
 <html lang="en">
 <head>

@@ -1,6 +1,5 @@
 <?php
-/* CODEX CHANGE: New handler added in the copied project for deleting a review
-   only when the logged-in user owns it. */
+/* Deleting a review only when the logged-in user owns it. */
 session_start();
 include 'connection.php';
 

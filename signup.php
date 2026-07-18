@@ -31,8 +31,7 @@ if (isset($_POST['signup'])) {
 
 $universities = mysqli_query($conn, "SELECT uni_id, uni_name FROM universities");
 ?>
-<!-- CODEX CHANGE: Designed page wrapper added to match the Figma /register screen.
-     Original signup PHP/database logic above is preserved. -->
+
 <!doctype html>
 <html lang="en">
 <head>

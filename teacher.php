@@ -52,7 +52,7 @@ function teacher_course_pills($course_code) {
     }
 }
 
-/* CODEX CHANGE: Helper added to display rating averages cleanly while keeping at least one decimal. */
+/* To display rating averages cleanly while keeping at least one decimal. */
 function teacher_average_number($rating) {
     if ($rating === null) {
         return '0.0';
@@ -80,7 +80,7 @@ if (!$teacher) {
 
 $teacher_name = trim($teacher['teacher_fname'] . ' ' . $teacher['teacher_lname']);
 
-/* CODEX CHANGE: Rating summary query added for the teacher profile sidebar. */
+/* Rating summary query for the teacher profile sidebar. */
 $rating_summary_sql = "
     SELECT
         AVG(approach_rating) AS approach_avg,
@@ -96,8 +96,7 @@ mysqli_stmt_execute($rating_summary_stmt);
 $rating_summary_result = mysqli_stmt_get_result($rating_summary_stmt);
 $rating_summary = mysqli_fetch_assoc($rating_summary_result);
 
-/* CODEX CHANGE: Query added to show every review that belongs to this teacher,
-   including the student name and school for the post header. */
+/* To show every review that belongs to this teacher, including the student name and school for the post header. */
 $reviews_sql = "
     SELECT
         reviews.review_id,
@@ -132,7 +131,6 @@ $reviews = mysqli_stmt_get_result($reviews_stmt);
 <body>
 <?php include 'navbar.php'; ?>
 
-<!-- CODEX CHANGE: Figma-inspired teacher profile page added. -->
 <main class="teacher-profile-shell">
     <a class="teacher-back-button" href="school.php?uni_id=<?php echo (int) $teacher['uni_id']; ?>">Back</a>
     <aside class="teacher-profile-sidebar">
@@ -140,7 +138,7 @@ $reviews = mysqli_stmt_get_result($reviews_stmt);
         <h1><?php echo e($teacher_name); ?></h1>
         <p><?php echo e($teacher['uni_name']); ?></p>
 
-        <!-- CODEX CHANGE: Teacher rating summary added below the profile information. -->
+        <!-- Teacher rating summary below the profile information. -->
         <section class="teacher-rating-summary" aria-label="Teacher rating summary">
             <div class="teacher-rating-row">
                 <span>Approachability</span>

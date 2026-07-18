@@ -1,6 +1,5 @@
 <?php
-/* CODEX CHANGE: Account-deleted confirmation page added. This page is shown
-   after edit_profile.php deletes the user's reviews and account. */
+/* This page is shown after edit_profile.php deletes the user's reviews and account. */
 ?>
 <!doctype html>
 <html lang="en">

@@ -21,8 +21,6 @@
         return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
     }
 
-    /* CODEX CHANGE: Helper functions added for profile avatar, course pills,
-       and star display. They mirror homepage behavior for the user's own posts. */
     function profile_initials($name) {
         $parts = preg_split('/\s+/', trim($name));
         $initials = '';
@@ -73,8 +71,7 @@
         $user = $row;
     }
 
-    /* CODEX CHANGE: Query added to show only the current user's posts on the
-       profile page, with professor and university data joined for display. */
+    /* Only the current user's posts on the profile page, with professor and university data joined for display. */
     $reviews_sql = "
         SELECT
             reviews.review_id,
@@ -108,7 +105,6 @@
 <body>
 <?php include 'navbar.php'; ?>
 
-<!-- CODEX CHANGE: Figma-inspired profile layout added. -->
 <main class="profile-shell">
     <aside class="profile-sidebar">
         <a class="profile-logout" href="logout.php">Logout</a>
